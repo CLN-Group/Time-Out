@@ -1,0 +1,14 @@
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\bin\Debug\Time Out.exe.config
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\bin\Debug\Time Out.exe
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\bin\Debug\Time Out.pdb
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\bin\Debug\en\Time Out.resources.dll
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time Out.csprojResolveAssemblyReference.cache
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time_Out.Main.resources
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time_Out.Properties.Resources.resources
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time_Out.Main.en.resources
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time Out.csproj.GenerateResource.Cache
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\en\Time Out.resources.dll
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time Out.exe
+c:\users\games\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time Out.pdb
+C:\Users\GAMES\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time_Out.Load_Team.resources
+C:\Users\GAMES\documents\visual studio 2012\Projects\Time Out\Time Out\obj\Debug\Time_Out.Select_Teams.resources
