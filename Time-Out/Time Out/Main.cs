@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace TimeOut
 {
 	public partial class Main : Form
 	{
-		static string folder = @"C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time Out\Time Out\data";
-		string archivoEquipos = folder + "teams.xml";
-		string archivoJugadores = folder + "players.xml";
+		static string folder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\data\");
+		public static string archivoEquipos = folder + "equipos.xml";
+		//string archivoJugadores = folder + "players.xml";
+        Team local = new Team();
+        Team visitor = new Team();
 
 		public Main()
 		{
@@ -57,5 +60,11 @@ namespace TimeOut
 			CreateTeam nuevo = new CreateTeam();
 			nuevo.ShowDialog();
 		}
+
+        private void crearJugadorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreatePlayer nuevo = new CreatePlayer();
+            nuevo.ShowDialog();
+        }
 	}
 }

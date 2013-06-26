@@ -10,7 +10,7 @@ namespace TimeOut
 {
 	public class Player
 	{
-		int id;
+		//int id;
 		string nombre;
 		string apellido;
 		float altura;
@@ -45,11 +45,12 @@ namespace TimeOut
 		/* PROPIEDADES */
 		/***************/
 		#region Propiedades
+		/*
 		public int ID
 		{
 			get { return id; }
 			set { id = value; }
-		}
+		}*/
 		public string Nombre
 		{
 			get { return nombre; }
@@ -161,7 +162,7 @@ namespace TimeOut
 		/// </summary>
 		/// <param name="str">La cadena a ser evaluada</param>
 		/// <returns>Si la cadena no tiene números retorna False</returns>
-		static private bool strConNumero(string str)
+		static public bool strConNumero(string str)
 		{
 			Regex rx = new Regex(@"\d");
 			return rx.IsMatch(str);
@@ -188,7 +189,7 @@ namespace TimeOut
 		/// <param name="altura">Altura del jugador, puede ser un numero con punto para especificar los centimetros</param>
 		/// <param name="posicion">Posición del jugador</param>
 		/// <returns>Si todos los valores ingresados son válidos retorna True</returns>
-		static public bool datosValidos(string nombre, string apellido, float altura, string posicion, DateTime nacimiento)
+		static public bool datosValidosJugador(string nombre, string apellido, float altura, string posicion, DateTime nacimiento)
 		{
 			bool res = true;
 			if (nombre == "" || apellido == "")
@@ -239,7 +240,7 @@ namespace TimeOut
 		}
 		public Player(string Nombre, string Apellido, DateTime Nacimiento, float Altura, string PosicionPreferida = "none")
 		{
-			if (datosValidos(Nombre, Apellido, Altura, PosicionPreferida, Nacimiento))
+			if (datosValidosJugador(Nombre, Apellido, Altura, PosicionPreferida, Nacimiento))
 			{
 				FechaNacimiento = Nacimiento;
 				this.nombre = Nombre;

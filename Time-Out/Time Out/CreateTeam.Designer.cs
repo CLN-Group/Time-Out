@@ -32,14 +32,14 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.nameCoachTextBox = new System.Windows.Forms.TextBox();
+			this.nameTeamTextBox = new System.Windows.Forms.TextBox();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.button4 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
-			this.label5 = new System.Windows.Forms.Label();
+			this.button_addPlayer = new System.Windows.Forms.Button();
+			this.label_cantPlayers = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.button_save = new System.Windows.Forms.Button();
 			this.button_cancel = new System.Windows.Forms.Button();
@@ -83,8 +83,8 @@
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.textBox2);
-			this.panel1.Controls.Add(this.textBox1);
+			this.panel1.Controls.Add(this.nameCoachTextBox);
+			this.panel1.Controls.Add(this.nameTeamTextBox);
 			this.panel1.Controls.Add(this.label2);
 			this.panel1.Controls.Add(this.label3);
 			this.panel1.Location = new System.Drawing.Point(28, 73);
@@ -92,27 +92,27 @@
 			this.panel1.Size = new System.Drawing.Size(478, 103);
 			this.panel1.TabIndex = 4;
 			// 
-			// textBox2
+			// nameCoachTextBox
 			// 
-			this.textBox2.Location = new System.Drawing.Point(238, 62);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(226, 20);
-			this.textBox2.TabIndex = 4;
+			this.nameCoachTextBox.Location = new System.Drawing.Point(238, 62);
+			this.nameCoachTextBox.Name = "nameCoachTextBox";
+			this.nameCoachTextBox.Size = new System.Drawing.Size(226, 20);
+			this.nameCoachTextBox.TabIndex = 4;
 			// 
-			// textBox1
+			// nameTeamTextBox
 			// 
-			this.textBox1.Location = new System.Drawing.Point(238, 15);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(226, 20);
-			this.textBox1.TabIndex = 1;
+			this.nameTeamTextBox.Location = new System.Drawing.Point(238, 15);
+			this.nameTeamTextBox.Name = "nameTeamTextBox";
+			this.nameTeamTextBox.Size = new System.Drawing.Size(226, 20);
+			this.nameTeamTextBox.TabIndex = 1;
 			// 
 			// panel2
 			// 
 			this.panel2.Controls.Add(this.button4);
 			this.panel2.Controls.Add(this.button3);
 			this.panel2.Controls.Add(this.button2);
-			this.panel2.Controls.Add(this.button1);
-			this.panel2.Controls.Add(this.label5);
+			this.panel2.Controls.Add(this.button_addPlayer);
+			this.panel2.Controls.Add(this.label_cantPlayers);
 			this.panel2.Controls.Add(this.label4);
 			this.panel2.Location = new System.Drawing.Point(28, 193);
 			this.panel2.Name = "panel2";
@@ -121,6 +121,7 @@
 			// 
 			// button4
 			// 
+			this.button4.Enabled = false;
 			this.button4.Location = new System.Drawing.Point(354, 54);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(110, 33);
@@ -130,6 +131,7 @@
 			// 
 			// button3
 			// 
+			this.button3.Enabled = false;
 			this.button3.Location = new System.Drawing.Point(238, 54);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(110, 33);
@@ -139,6 +141,7 @@
 			// 
 			// button2
 			// 
+			this.button2.Enabled = false;
 			this.button2.Location = new System.Drawing.Point(122, 54);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(110, 33);
@@ -146,25 +149,26 @@
 			this.button2.Text = "Modificar Jugador";
 			this.button2.UseVisualStyleBackColor = true;
 			// 
-			// button1
+			// button_addPlayer
 			// 
-			this.button1.Location = new System.Drawing.Point(6, 54);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(110, 33);
-			this.button1.TabIndex = 5;
-			this.button1.Text = "Agregar Jugadores";
-			this.button1.UseVisualStyleBackColor = true;
+			this.button_addPlayer.Location = new System.Drawing.Point(6, 54);
+			this.button_addPlayer.Name = "button_addPlayer";
+			this.button_addPlayer.Size = new System.Drawing.Size(110, 33);
+			this.button_addPlayer.TabIndex = 5;
+			this.button_addPlayer.Text = "Agregar Jugadores";
+			this.button_addPlayer.UseVisualStyleBackColor = true;
+			this.button_addPlayer.Click += new System.EventHandler(this.button_addPlayer_Click);
 			// 
-			// label5
+			// label_cantPlayers
 			// 
-			this.label5.AutoSize = true;
-			this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.label5.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(189, 15);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(22, 23);
-			this.label5.TabIndex = 4;
-			this.label5.Text = "0";
+			this.label_cantPlayers.AutoSize = true;
+			this.label_cantPlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.label_cantPlayers.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_cantPlayers.Location = new System.Drawing.Point(189, 15);
+			this.label_cantPlayers.Name = "label_cantPlayers";
+			this.label_cantPlayers.Size = new System.Drawing.Size(22, 23);
+			this.label_cantPlayers.TabIndex = 4;
+			this.label_cantPlayers.Text = "0";
 			// 
 			// label4
 			// 
@@ -185,6 +189,7 @@
 			this.button_save.TabIndex = 6;
 			this.button_save.Text = "Guardar Datos";
 			this.button_save.UseVisualStyleBackColor = false;
+			this.button_save.Click += new System.EventHandler(this.button_save_Click);
 			// 
 			// button_cancel
 			// 
@@ -225,14 +230,14 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox nameCoachTextBox;
+		private System.Windows.Forms.TextBox nameTeamTextBox;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Button button_addPlayer;
+		private System.Windows.Forms.Label label_cantPlayers;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Button button_save;
 		private System.Windows.Forms.Button button_cancel;

@@ -45,10 +45,9 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.archivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.equiposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.jugadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.crearEquipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.eliminarEquipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.crearJugadorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.jugadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.eliminarJugadorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panel_actions.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer_teamsDescriptions)).BeginInit();
@@ -250,15 +249,6 @@
 			this.equiposToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.equiposToolStripMenuItem.Text = "Equipos";
 			// 
-			// jugadoresToolStripMenuItem
-			// 
-			this.jugadoresToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.crearJugadorToolStripMenuItem,
-            this.eliminarJugadorToolStripMenuItem});
-			this.jugadoresToolStripMenuItem.Name = "jugadoresToolStripMenuItem";
-			this.jugadoresToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.jugadoresToolStripMenuItem.Text = "Jugadores";
-			// 
 			// crearEquipoToolStripMenuItem
 			// 
 			this.crearEquipoToolStripMenuItem.Name = "crearEquipoToolStripMenuItem";
@@ -272,11 +262,13 @@
 			this.eliminarEquipoToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.eliminarEquipoToolStripMenuItem.Text = "Eliminar Equipo";
 			// 
-			// crearJugadorToolStripMenuItem
+			// jugadoresToolStripMenuItem
 			// 
-			this.crearJugadorToolStripMenuItem.Name = "crearJugadorToolStripMenuItem";
-			this.crearJugadorToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-			this.crearJugadorToolStripMenuItem.Text = "Crear Jugador";
+			this.jugadoresToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eliminarJugadorToolStripMenuItem});
+			this.jugadoresToolStripMenuItem.Name = "jugadoresToolStripMenuItem";
+			this.jugadoresToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.jugadoresToolStripMenuItem.Text = "Jugadores";
 			// 
 			// eliminarJugadorToolStripMenuItem
 			// 
@@ -340,7 +332,6 @@
 		private System.Windows.Forms.ToolStripMenuItem crearEquipoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem eliminarEquipoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem jugadoresToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem crearJugadorToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem eliminarJugadorToolStripMenuItem;
 
 	}

@@ -16,8 +16,7 @@ namespace TimeOut
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			//Application.Run(new Main());
-			Application.Run(new CreatePlayer());
+			Application.Run(new Main());
 		}
 	}
 }

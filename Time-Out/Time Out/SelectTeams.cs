@@ -7,19 +7,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace TimeOut
 {
 	public partial class SelectTeams : Form
 	{
 		string archivo;
+        List<Team> listaEquipos = new List<Team>();
 		Team localTeam = new Team();
 		Team visitorTeam = new Team();
 
 		public SelectTeams()
 		{
 			InitializeComponent();
+
+            archivo = Main.archivoEquipos;
+            CargarEquipos();
+            ActualizarListBox();
 		}
+        void ActualizarListBox()
+        {
+            this.listBox_localTeams.DataSource = null;
+            this.listBox_localTeams.DataSource = listaEquipos;
+            this.listBox_localTeams.DisplayMember = "Titulo";
+
+            this.listBox_visitorTeams.DataSource = null;
+            this.listBox_visitorTeams.DataSource = listaEquipos;
+            this.listBox_visitorTeams.DisplayMember = "Titulo";
+        }
+        void CargarEquipos()
+        {
+            if (File.Exists(archivo))
+            {
+                StreamReader flujo = new StreamReader(archivo);
+                XmlSerializer serial = new XmlSerializer(typeof(Team));
+                listaEquipos = (List<Team>)serial.Deserialize(flujo);
+                flujo.Close();
+            }
+        }
 
 		private void Load_Teams_FormClosing(object sender, FormClosingEventArgs e)
 		{

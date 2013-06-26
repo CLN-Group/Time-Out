@@ -49,6 +49,11 @@ namespace TimeOut
 			get { return faltas; }
 			set { faltas = value; }
 		}
+        public List<Player> Jugadores
+        {
+            get { return jugadores; }
+            set { jugadores = value; }
+        }
 		#endregion
 		
 

@@ -15,14 +15,26 @@ namespace TimeOut
 {
 	public partial class CreatePlayer : Form
 	{
-		string rutaDelArchivo = "jugadores.xml";
+		//string rutaDelArchivo;
 		Player jugador = new Player();
+		bool status = false;
 
+		#region Propiedades
+        public Player Jugador
+        {
+            get { return jugador; }
+        }
+		public bool JugadorCreado
+		{
+			get { return status; }
+		}
+		/*
 		public string RutaDelArchivo
 		{
 			get { return rutaDelArchivo; }
 			set { rutaDelArchivo = value; }
-		}
+		}*/
+		#endregion
 
 		public CreatePlayer()
 		{
@@ -38,8 +50,11 @@ namespace TimeOut
 		/// Abre un dialogo pidiendo confirmación al usuario para cerrar la ventana.
 		/// <para>Se ejecuta al enviar una señal para cerrar la ventana.</para>
 		/// </summary>
+		// TODO
+		// This method is disabled until solve the bug that opens the AskDialog while closing the form.
 		private void CreatePlayer_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			/*
 			if (e.CloseReason == CloseReason.UserClosing)
 			{
 				DialogResult userResponce = MessageBox.Show("Esta seguro que desea salir sin guardar los datos?",
@@ -57,24 +72,30 @@ namespace TimeOut
 				//e.Cancel = true; --> it doesn't work
 				return;
 			}
+			*/
+		}
+		private void button_cancel_Click(object sender, EventArgs e)
+		{
+			this.Close(); // Trata de cerrar la ventana
 		}
 
 		/// <summary>
 		/// Carga todos los jugadores guardados en un archivo XML en una lista de jugadores.
 		/// </summary>
 		/// <returns>Una lista genérica de jugadores (Players). Si el archivo no existe retorna NULL</returns>
-		public List<Player> getPlayers()
+		/*public List<Player> getPlayers()
 		{
 			List<Player> lista = null;
-			if (File.Exists(rutaDelArchivo))
+			if (File.Exists(this.rutaDelArchivo))
 			{
-				StreamReader flujo = new StreamReader(rutaDelArchivo);
+				StreamReader flujo = new StreamReader(this.rutaDelArchivo);
 				XmlSerializer serial = new XmlSerializer(typeof(List<Player>));
 				lista = (List<Player>)serial.Deserialize(flujo);
 				flujo.Close();
 			}
 			return lista;
-		}
+		}*/
+
 		/// <summary>
 		/// Agrega el jugador a la lista. 
 		///  <para>La lista puede estar vacía (null).</para>
@@ -82,7 +103,7 @@ namespace TimeOut
 		/// <param name="jugador">Jugador que se guardara en la lista</param>
 		/// <param name="listaJugadores">Lista con los otros jugadores, si no existe debe ser null</param>
 		/// <returns>Una nueva lista con el jugador agregado.</returns>
-		List<Player> addPlayerToList(Player jugador, List<Player> listaJugadores)
+		/*List<Player> addPlayerToList(Player jugador, List<Player> listaJugadores)
 		{
 			if (listaJugadores != null)
 			{
@@ -101,13 +122,13 @@ namespace TimeOut
 			// Agrega el jugador a la lista
 			listaJugadores.Add(jugador);
 			return listaJugadores;
-		}
+		}*/
 
 		/// <summary>
 		/// Guarda el jugador agregandolo al archivo XML.
 		/// <para>Si el archivo no existe sera creado.</para>
 		/// </summary>
-		void GuardarJugador()
+		/*void GuardarJugador()
 		{
 			List<Player> listaDeJugadores = getPlayers();
 			listaDeJugadores = addPlayerToList(jugador, listaDeJugadores);
@@ -115,7 +136,7 @@ namespace TimeOut
 			XmlSerializer serial = new XmlSerializer(typeof(List<Player>));
 			serial.Serialize(flujo, listaDeJugadores);
 			flujo.Close();
-		}
+		}*/
 
 
 		private void button_save_Click(object sender, EventArgs e)
@@ -125,7 +146,7 @@ namespace TimeOut
 			float a = (float)this.numericUpDown_altura.Value;
 			DateTime b = this.monthCalendar1.SelectionStart;
 			string p = Player.getPosicion(this.posicionPreferida.Text);
-			bool result = Player.datosValidos(n, l, a, p, b);
+			bool result = Player.datosValidosJugador(n, l, a, p, b);
 			if (result)
 			{
 				jugador.Nombre = n;
@@ -133,24 +154,20 @@ namespace TimeOut
 				jugador.Altura = a;
 				jugador.FechaNacimiento = b;
 				jugador.Posicion = p;
-				GuardarJugador();
-				MessageBox.Show("El jugador ha sido guardado correctamente");
-				this.CreatePlayer_FormClosing(this, new FormClosingEventArgs(CloseReason.None, false));
+				//GuardarJugador();
+				MessageBox.Show("El jugador ha sido creado correctamente");
+				this.status = true;
+				//this.CreatePlayer_FormClosing(this, new FormClosingEventArgs(CloseReason.None, false));
+				this.Close();
 			}
 			else
 			{
-				DialogResult userResponce = MessageBox.Show("ERROR: asegurese de que los datos ingresados sean válidos e ingreselos nuevamente.",
+				MessageBox.Show("ERROR: asegurese de que los datos ingresados sean válidos e ingreselos nuevamente.",
 					"Datos ingresados inválidos!",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error,
 					MessageBoxDefaultButton.Button1);
 			}
-		}
-
-
-		private void button_cancel_Click(object sender, EventArgs e)
-		{
-			this.Close(); // Trata de cerrar la ventana
 		}
 	}
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTeam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Team>
+    <Titulo>Chicago</Titulo>
+    <NombreDelTecnico>Fires</NombreDelTecnico>
+    <PartidosGanados>0</PartidosGanados>
+    <PartidosPerdidos>0</PartidosPerdidos>
+    <Faltas>0</Faltas>
+    <Jugadores>
+      <Player>
+        <Nombre>Lucio</Nombre>
+        <Apellido>Martínez</Apellido>
+        <Altura>1.85</Altura>
+        <Nacimiento>14/07/1994</Nacimiento>
+        <Posicion>SG</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Nico</Nombre>
+        <Apellido>Pisto</Apellido>
+        <Altura>1.6</Altura>
+        <Nacimiento>02/12/2009</Nacimiento>
+        <Posicion>C</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Carlos</Nombre>
+        <Apellido>g</Apellido>
+        <Altura>2.96</Altura>
+        <Nacimiento>24/06/2013</Nacimiento>
+        <Posicion>PG</Posicion>
+      </Player>
+    </Jugadores>
+  </Team>
+</ArrayOfTeam>
