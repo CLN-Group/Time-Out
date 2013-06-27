@@ -49,6 +49,8 @@
 			this.eliminarEquipoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.jugadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.eliminarJugadorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.button_InitialTeamLocal = new System.Windows.Forms.Button();
+			this.button_InitialTeamVisitor = new System.Windows.Forms.Button();
 			this.panel_actions.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer_teamsDescriptions)).BeginInit();
 			this.splitContainer_teamsDescriptions.Panel1.SuspendLayout();
@@ -88,7 +90,7 @@
 			this.button_close.Location = new System.Drawing.Point(566, 395);
 			this.button_close.Name = "button_close";
 			this.button_close.Size = new System.Drawing.Size(75, 23);
-			this.button_close.TabIndex = 4;
+			this.button_close.TabIndex = 6;
 			this.button_close.Text = "Salir";
 			this.button_close.UseVisualStyleBackColor = true;
 			this.button_close.Click += new System.EventHandler(this.button_close_Click);
@@ -112,7 +114,7 @@
 			this.button_getStatistics.Location = new System.Drawing.Point(4, 178);
 			this.button_getStatistics.Name = "button_getStatistics";
 			this.button_getStatistics.Size = new System.Drawing.Size(269, 81);
-			this.button_getStatistics.TabIndex = 3;
+			this.button_getStatistics.TabIndex = 5;
 			this.button_getStatistics.Text = "Obtener estadísticas del encuentro";
 			this.button_getStatistics.UseVisualStyleBackColor = false;
 			// 
@@ -125,7 +127,7 @@
 			this.button_startMatch.Location = new System.Drawing.Point(4, 91);
 			this.button_startMatch.Name = "button_startMatch";
 			this.button_startMatch.Size = new System.Drawing.Size(269, 81);
-			this.button_startMatch.TabIndex = 2;
+			this.button_startMatch.TabIndex = 4;
 			this.button_startMatch.Text = "Comenzar partido";
 			this.button_startMatch.UseVisualStyleBackColor = false;
 			// 
@@ -151,12 +153,14 @@
 			// 
 			// splitContainer_teamsDescriptions.Panel1
 			// 
+			this.splitContainer_teamsDescriptions.Panel1.Controls.Add(this.button_InitialTeamLocal);
 			this.splitContainer_teamsDescriptions.Panel1.Controls.Add(this.label_localTDescription);
 			this.splitContainer_teamsDescriptions.Panel1.Controls.Add(this.pictureBox_localT);
 			this.splitContainer_teamsDescriptions.Panel1.Controls.Add(this.label2);
 			// 
 			// splitContainer_teamsDescriptions.Panel2
 			// 
+			this.splitContainer_teamsDescriptions.Panel2.Controls.Add(this.button_InitialTeamVisitor);
 			this.splitContainer_teamsDescriptions.Panel2.Controls.Add(this.label_visitorTDescription);
 			this.splitContainer_teamsDescriptions.Panel2.Controls.Add(this.pictureBox_visitorT);
 			this.splitContainer_teamsDescriptions.Panel2.Controls.Add(this.label3);
@@ -168,9 +172,10 @@
 			// label_localTDescription
 			// 
 			this.label_localTDescription.AutoSize = true;
-			this.label_localTDescription.Location = new System.Drawing.Point(105, 35);
+			this.label_localTDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_localTDescription.Location = new System.Drawing.Point(134, 15);
 			this.label_localTDescription.Name = "label_localTDescription";
-			this.label_localTDescription.Size = new System.Drawing.Size(45, 13);
+			this.label_localTDescription.Size = new System.Drawing.Size(59, 17);
 			this.label_localTDescription.TabIndex = 2;
 			this.label_localTDescription.Text = "ninguno";
 			// 
@@ -196,9 +201,10 @@
 			// label_visitorTDescription
 			// 
 			this.label_visitorTDescription.AutoSize = true;
-			this.label_visitorTDescription.Location = new System.Drawing.Point(105, 40);
+			this.label_visitorTDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_visitorTDescription.Location = new System.Drawing.Point(134, 17);
 			this.label_visitorTDescription.Name = "label_visitorTDescription";
-			this.label_visitorTDescription.Size = new System.Drawing.Size(45, 13);
+			this.label_visitorTDescription.Size = new System.Drawing.Size(59, 17);
 			this.label_visitorTDescription.TabIndex = 2;
 			this.label_visitorTDescription.Text = "ninguno";
 			// 
@@ -246,7 +252,7 @@
             this.crearEquipoToolStripMenuItem,
             this.eliminarEquipoToolStripMenuItem});
 			this.equiposToolStripMenuItem.Name = "equiposToolStripMenuItem";
-			this.equiposToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.equiposToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
 			this.equiposToolStripMenuItem.Text = "Equipos";
 			// 
 			// crearEquipoToolStripMenuItem
@@ -267,7 +273,7 @@
 			this.jugadoresToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eliminarJugadorToolStripMenuItem});
 			this.jugadoresToolStripMenuItem.Name = "jugadoresToolStripMenuItem";
-			this.jugadoresToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.jugadoresToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
 			this.jugadoresToolStripMenuItem.Text = "Jugadores";
 			// 
 			// eliminarJugadorToolStripMenuItem
@@ -275,6 +281,26 @@
 			this.eliminarJugadorToolStripMenuItem.Name = "eliminarJugadorToolStripMenuItem";
 			this.eliminarJugadorToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
 			this.eliminarJugadorToolStripMenuItem.Text = "Eliminar Jugador";
+			// 
+			// button_InitialTeamLocal
+			// 
+			this.button_InitialTeamLocal.Location = new System.Drawing.Point(137, 56);
+			this.button_InitialTeamLocal.Name = "button_InitialTeamLocal";
+			this.button_InitialTeamLocal.Size = new System.Drawing.Size(111, 42);
+			this.button_InitialTeamLocal.TabIndex = 2;
+			this.button_InitialTeamLocal.Text = "Preparar formación Inicial";
+			this.button_InitialTeamLocal.UseVisualStyleBackColor = true;
+			this.button_InitialTeamLocal.Visible = false;
+			// 
+			// button_InitialTeamVisitor
+			// 
+			this.button_InitialTeamVisitor.Location = new System.Drawing.Point(137, 63);
+			this.button_InitialTeamVisitor.Name = "button_InitialTeamVisitor";
+			this.button_InitialTeamVisitor.Size = new System.Drawing.Size(111, 42);
+			this.button_InitialTeamVisitor.TabIndex = 3;
+			this.button_InitialTeamVisitor.Text = "Preparar formación Inicial";
+			this.button_InitialTeamVisitor.UseVisualStyleBackColor = true;
+			this.button_InitialTeamVisitor.Visible = false;
 			// 
 			// Main
 			// 
@@ -333,6 +359,8 @@
 		private System.Windows.Forms.ToolStripMenuItem eliminarEquipoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem jugadoresToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem eliminarJugadorToolStripMenuItem;
+		private System.Windows.Forms.Button button_InitialTeamLocal;
+		private System.Windows.Forms.Button button_InitialTeamVisitor;
 
 	}
 }

@@ -17,7 +17,7 @@ namespace TimeOut
 	{
 		//string rutaDelArchivo;
 		Player jugador = new Player();
-		bool status = false;
+		bool confirmation = true;
 
 		#region Propiedades
         public Player Jugador
@@ -26,7 +26,7 @@ namespace TimeOut
         }
 		public bool JugadorCreado
 		{
-			get { return status; }
+			get { return !confirmation; }
 		}
 		/*
 		public string RutaDelArchivo
@@ -46,39 +46,8 @@ namespace TimeOut
 			numericUpDown_altura.Increment = 0.01M;
 		}
 
-		/// <summary>
-		/// Abre un dialogo pidiendo confirmación al usuario para cerrar la ventana.
-		/// <para>Se ejecuta al enviar una señal para cerrar la ventana.</para>
-		/// </summary>
-		// TODO
-		// This method is disabled until solve the bug that opens the AskDialog while closing the form.
-		private void CreatePlayer_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			/*
-			if (e.CloseReason == CloseReason.UserClosing)
-			{
-				DialogResult userResponce = MessageBox.Show("Esta seguro que desea salir sin guardar los datos?",
-					"Cerrar ventana",
-					MessageBoxButtons.YesNo,
-					MessageBoxIcon.Question,
-					MessageBoxDefaultButton.Button2);
-				if (userResponce == System.Windows.Forms.DialogResult.No)
-					e.Cancel = true;
-				}
-			else
-			{ // Llamada de cierre por el sistema o por el programador luego de el guardado de datos
-				MessageBox.Show("closing me by me");
-				// TODO
-				//e.Cancel = true; --> it doesn't work
-				return;
-			}
-			*/
-		}
-		private void button_cancel_Click(object sender, EventArgs e)
-		{
-			this.Close(); // Trata de cerrar la ventana
-		}
-
+		
+		#region Codigo anulado por cambios de diseños
 		/// <summary>
 		/// Carga todos los jugadores guardados en un archivo XML en una lista de jugadores.
 		/// </summary>
@@ -95,7 +64,6 @@ namespace TimeOut
 			}
 			return lista;
 		}*/
-
 		/// <summary>
 		/// Agrega el jugador a la lista. 
 		///  <para>La lista puede estar vacía (null).</para>
@@ -123,7 +91,6 @@ namespace TimeOut
 			listaJugadores.Add(jugador);
 			return listaJugadores;
 		}*/
-
 		/// <summary>
 		/// Guarda el jugador agregandolo al archivo XML.
 		/// <para>Si el archivo no existe sera creado.</para>
@@ -137,6 +104,7 @@ namespace TimeOut
 			serial.Serialize(flujo, listaDeJugadores);
 			flujo.Close();
 		}*/
+		#endregion
 
 
 		private void button_save_Click(object sender, EventArgs e)
@@ -154,10 +122,10 @@ namespace TimeOut
 				jugador.Altura = a;
 				jugador.FechaNacimiento = b;
 				jugador.Posicion = p;
+				// No se guarda el jugador en ningun archivo por cambios de diseño
 				//GuardarJugador();
-				MessageBox.Show("El jugador ha sido creado correctamente");
-				this.status = true;
-				//this.CreatePlayer_FormClosing(this, new FormClosingEventArgs(CloseReason.None, false));
+				MessageBox.Show("El jugador ha sido creado correctamente!");
+				this.confirmation = true; // Desactiva el mensaje de confirmación
 				this.Close();
 			}
 			else
@@ -167,6 +135,29 @@ namespace TimeOut
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error,
 					MessageBoxDefaultButton.Button1);
+			}
+		}
+
+		private void button_cancel_Click(object sender, EventArgs e)
+		{
+			this.Close(); // Trata de cerrar la ventana
+		}
+
+		/// <summary>
+		/// Abre un dialogo pidiendo confirmación al usuario para cerrar la ventana.
+		/// <para>Se ejecuta al enviar una señal para cerrar la ventana.</para>
+		/// </summary>
+		private void CreatePlayer_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (confirmation)
+			{
+				DialogResult userResponce = MessageBox.Show("Esta seguro que desea salir sin guardar los datos?",
+					"Cerrar ventana",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Question,
+					MessageBoxDefaultButton.Button2);
+				if (userResponce == System.Windows.Forms.DialogResult.No)
+					e.Cancel = true;
 			}
 		}
 	}

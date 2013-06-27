@@ -11,22 +11,151 @@
         <Nombre>Lucio</Nombre>
         <Apellido>Martínez</Apellido>
         <Altura>1.85</Altura>
-        <Nacimiento>14/07/1994</Nacimiento>
+        <Nacimiento>01/01/0001</Nacimiento>
         <Posicion>SG</Posicion>
       </Player>
       <Player>
         <Nombre>Nico</Nombre>
         <Apellido>Pisto</Apellido>
         <Altura>1.6</Altura>
-        <Nacimiento>02/12/2009</Nacimiento>
+        <Nacimiento>01/01/0001</Nacimiento>
         <Posicion>C</Posicion>
       </Player>
       <Player>
         <Nombre>Carlos</Nombre>
         <Apellido>g</Apellido>
         <Altura>2.96</Altura>
-        <Nacimiento>24/06/2013</Nacimiento>
+        <Nacimiento>01/01/0001</Nacimiento>
         <Posicion>PG</Posicion>
+      </Player>
+    </Jugadores>
+  </Team>
+  <Team>
+    <Titulo>Detroit</Titulo>
+    <NombreDelTecnico>Water</NombreDelTecnico>
+    <PartidosGanados>0</PartidosGanados>
+    <PartidosPerdidos>0</PartidosPerdidos>
+    <Faltas>0</Faltas>
+    <Jugadores>
+      <Player>
+        <Nombre>lucio</Nombre>
+        <Apellido>Martínez</Apellido>
+        <Altura>1.87</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>SG</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Pepe</Nombre>
+        <Apellido>Sanches</Apellido>
+        <Altura>1.97</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>C</Posicion>
+      </Player>
+    </Jugadores>
+  </Team>
+  <Team>
+    <Titulo>Oklahoma</Titulo>
+    <NombreDelTecnico>Air</NombreDelTecnico>
+    <PartidosGanados>0</PartidosGanados>
+    <PartidosPerdidos>0</PartidosPerdidos>
+    <Faltas>0</Faltas>
+    <Jugadores>
+      <Player>
+        <Nombre>Manolo</Nombre>
+        <Apellido>JJ</Apellido>
+        <Altura>1.9</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>SG</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Solano</Nombre>
+        <Apellido>Kose</Apellido>
+        <Altura>1.97</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>PF</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Julio</Nombre>
+        <Apellido>Gomze</Apellido>
+        <Altura>1.77</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>SF</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Quiroga</Nombre>
+        <Apellido>Manuel</Apellido>
+        <Altura>1.9</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>PG</Posicion>
+      </Player>
+    </Jugadores>
+  </Team>
+  <Team>
+    <Titulo>Airbones</Titulo>
+    <NombreDelTecnico>Lod</NombreDelTecnico>
+    <PartidosGanados>0</PartidosGanados>
+    <PartidosPerdidos>0</PartidosPerdidos>
+    <Faltas>0</Faltas>
+    <Jugadores>
+      <Player>
+        <Nombre>Mano</Nombre>
+        <Apellido>Gino</Apellido>
+        <Altura>1.9</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>SG</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Josefo</Nombre>
+        <Apellido>Guido</Apellido>
+        <Altura>1.81</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>C</Posicion>
+      </Player>
+    </Jugadores>
+  </Team>
+  <Team>
+    <Titulo>Orlando</Titulo>
+    <NombreDelTecnico>Magico</NombreDelTecnico>
+    <PartidosGanados>0</PartidosGanados>
+    <PartidosPerdidos>0</PartidosPerdidos>
+    <Faltas>0</Faltas>
+    <Jugadores>
+      <Player>
+        <Nombre>Julio</Nombre>
+        <Apellido>Soprano</Apellido>
+        <Altura>1.77</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>PG</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Norman</Nombre>
+        <Apellido>Viruelo</Apellido>
+        <Altura>2</Altura>
+        <Nacimiento>01/01/0001</Nacimiento>
+        <Posicion>C</Posicion>
+      </Player>
+    </Jugadores>
+  </Team>
+  <Team>
+    <Titulo>Om</Titulo>
+    <NombreDelTecnico>Arture</NombreDelTecnico>
+    <PartidosGanados>0</PartidosGanados>
+    <PartidosPerdidos>0</PartidosPerdidos>
+    <Faltas>0</Faltas>
+    <Jugadores>
+      <Player>
+        <Nombre>Mange</Nombre>
+        <Apellido>Riolo</Apellido>
+        <Altura>1.9</Altura>
+        <Nacimiento>24/06/2013</Nacimiento>
+        <Posicion>PF</Posicion>
+      </Player>
+      <Player>
+        <Nombre>Rodo</Nombre>
+        <Apellido>Pepe</Apellido>
+        <Altura>2.2</Altura>
+        <Nacimiento>01/06/2013</Nacimiento>
+        <Posicion>SG</Posicion>
       </Player>
     </Jugadores>
   </Team>

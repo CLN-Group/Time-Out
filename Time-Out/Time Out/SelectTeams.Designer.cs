@@ -29,13 +29,13 @@
 		private void InitializeComponent()
 		{
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox_statusLocal = new System.Windows.Forms.PictureBox();
+            this.interactiveLabelL = new System.Windows.Forms.Label();
             this.button_acceptSelectionL = new System.Windows.Forms.Button();
             this.pictureBox_logoLocal = new System.Windows.Forms.PictureBox();
             this.listBox_localTeams = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox_statusVisitor = new System.Windows.Forms.PictureBox();
+            this.interactiveLabelV = new System.Windows.Forms.Label();
             this.button_acceptSelectionV = new System.Windows.Forms.Button();
             this.pictureBox_logoVisitor = new System.Windows.Forms.PictureBox();
             this.listBox_visitorTeams = new System.Windows.Forms.ListBox();
@@ -44,10 +44,8 @@
             this.button_modifyTeam = new System.Windows.Forms.Button();
             this.button_addTeam = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_statusLocal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logoLocal)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_statusVisitor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logoVisitor)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +53,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.pictureBox_statusLocal);
+            this.panel1.Controls.Add(this.interactiveLabelL);
             this.panel1.Controls.Add(this.button_acceptSelectionL);
             this.panel1.Controls.Add(this.pictureBox_logoLocal);
             this.panel1.Controls.Add(this.listBox_localTeams);
@@ -65,26 +63,29 @@
             this.panel1.Size = new System.Drawing.Size(307, 185);
             this.panel1.TabIndex = 0;
             // 
-            // pictureBox_statusLocal
+            // interactiveLabelL
             // 
-            this.pictureBox_statusLocal.Image = global::TimeOut.Properties.Resources.ok;
-            this.pictureBox_statusLocal.Location = new System.Drawing.Point(40, 137);
-            this.pictureBox_statusLocal.Name = "pictureBox_statusLocal";
-            this.pictureBox_statusLocal.Size = new System.Drawing.Size(27, 19);
-            this.pictureBox_statusLocal.TabIndex = 3;
-            this.pictureBox_statusLocal.TabStop = false;
-            this.pictureBox_statusLocal.Visible = false;
+            this.interactiveLabelL.AutoSize = true;
+            this.interactiveLabelL.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.interactiveLabelL.Location = new System.Drawing.Point(34, 142);
+            this.interactiveLabelL.Name = "interactiveLabelL";
+            this.interactiveLabelL.Size = new System.Drawing.Size(168, 31);
+            this.interactiveLabelL.TabIndex = 5;
+            this.interactiveLabelL.Text = "Ready! No?";
+            this.interactiveLabelL.Visible = false;
+            this.interactiveLabelL.Click += new System.EventHandler(this.interactiveLabel_Click);
             // 
             // button_acceptSelectionL
             // 
             this.button_acceptSelectionL.BackColor = System.Drawing.Color.LimeGreen;
-            this.button_acceptSelectionL.Enabled = false;
             this.button_acceptSelectionL.Location = new System.Drawing.Point(184, 144);
             this.button_acceptSelectionL.Name = "button_acceptSelectionL";
             this.button_acceptSelectionL.Size = new System.Drawing.Size(113, 29);
             this.button_acceptSelectionL.TabIndex = 2;
             this.button_acceptSelectionL.Text = "Aceptar";
             this.button_acceptSelectionL.UseVisualStyleBackColor = false;
+            this.button_acceptSelectionL.Visible = false;
+            this.button_acceptSelectionL.Click += new System.EventHandler(this.button_acceptSelection_Click);
             // 
             // pictureBox_logoLocal
             // 
@@ -99,15 +100,14 @@
             // 
             this.listBox_localTeams.FormattingEnabled = true;
             this.listBox_localTeams.Items.AddRange(new object[] {
-            "Bulls",
-            "Celtics",
-            "Lakers"});
+            ""});
             this.listBox_localTeams.Location = new System.Drawing.Point(184, 4);
             this.listBox_localTeams.Name = "listBox_localTeams";
             this.listBox_localTeams.ScrollAlwaysVisible = true;
             this.listBox_localTeams.Size = new System.Drawing.Size(113, 134);
             this.listBox_localTeams.Sorted = true;
             this.listBox_localTeams.TabIndex = 1;
+            this.listBox_localTeams.SelectedValueChanged += new System.EventHandler(this.listBox_SelectedValueChanged);
             // 
             // label1
             // 
@@ -122,7 +122,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.pictureBox_statusVisitor);
+            this.panel2.Controls.Add(this.interactiveLabelV);
             this.panel2.Controls.Add(this.button_acceptSelectionV);
             this.panel2.Controls.Add(this.pictureBox_logoVisitor);
             this.panel2.Controls.Add(this.listBox_visitorTeams);
@@ -132,26 +132,29 @@
             this.panel2.Size = new System.Drawing.Size(307, 185);
             this.panel2.TabIndex = 2;
             // 
-            // pictureBox_statusVisitor
+            // interactiveLabelV
             // 
-            this.pictureBox_statusVisitor.Image = global::TimeOut.Properties.Resources.ok;
-            this.pictureBox_statusVisitor.Location = new System.Drawing.Point(44, 137);
-            this.pictureBox_statusVisitor.Name = "pictureBox_statusVisitor";
-            this.pictureBox_statusVisitor.Size = new System.Drawing.Size(27, 19);
-            this.pictureBox_statusVisitor.TabIndex = 5;
-            this.pictureBox_statusVisitor.TabStop = false;
-            this.pictureBox_statusVisitor.Visible = false;
+            this.interactiveLabelV.AutoSize = true;
+            this.interactiveLabelV.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.interactiveLabelV.Location = new System.Drawing.Point(38, 141);
+            this.interactiveLabelV.Name = "interactiveLabelV";
+            this.interactiveLabelV.Size = new System.Drawing.Size(168, 31);
+            this.interactiveLabelV.TabIndex = 6;
+            this.interactiveLabelV.Text = "Ready! No?";
+            this.interactiveLabelV.Visible = false;
+            this.interactiveLabelV.Click += new System.EventHandler(this.interactiveLabel_Click);
             // 
             // button_acceptSelectionV
             // 
             this.button_acceptSelectionV.BackColor = System.Drawing.Color.LimeGreen;
-            this.button_acceptSelectionV.Enabled = false;
             this.button_acceptSelectionV.Location = new System.Drawing.Point(184, 144);
             this.button_acceptSelectionV.Name = "button_acceptSelectionV";
             this.button_acceptSelectionV.Size = new System.Drawing.Size(113, 29);
             this.button_acceptSelectionV.TabIndex = 4;
             this.button_acceptSelectionV.Text = "Aceptar";
             this.button_acceptSelectionV.UseVisualStyleBackColor = false;
+            this.button_acceptSelectionV.Visible = false;
+            this.button_acceptSelectionV.Click += new System.EventHandler(this.button_acceptSelection_Click);
             // 
             // pictureBox_logoVisitor
             // 
@@ -166,15 +169,14 @@
             // 
             this.listBox_visitorTeams.FormattingEnabled = true;
             this.listBox_visitorTeams.Items.AddRange(new object[] {
-            "Bulls",
-            "Celtics",
-            "Lakers"});
+            ""});
             this.listBox_visitorTeams.Location = new System.Drawing.Point(184, 4);
             this.listBox_visitorTeams.Name = "listBox_visitorTeams";
             this.listBox_visitorTeams.ScrollAlwaysVisible = true;
             this.listBox_visitorTeams.Size = new System.Drawing.Size(113, 134);
             this.listBox_visitorTeams.Sorted = true;
             this.listBox_visitorTeams.TabIndex = 3;
+            this.listBox_visitorTeams.SelectedValueChanged += new System.EventHandler(this.listBox_SelectedValueChanged);
             // 
             // label2
             // 
@@ -199,6 +201,7 @@
             // 
             // button_modifyTeam
             // 
+            this.button_modifyTeam.Enabled = false;
             this.button_modifyTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_modifyTeam.Location = new System.Drawing.Point(313, 19);
             this.button_modifyTeam.Name = "button_modifyTeam";
@@ -226,20 +229,25 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "SelectTeams";
             this.Text = "Cargar Equipos y Jugadores";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Load_Teams_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_statusLocal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logoLocal)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_statusVisitor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logoVisitor)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
+		}
+
+		private void interactiveLabel_MouseEnter(object sender, System.EventArgs e)
+		{
+			throw new System.NotImplementedException();
 		}
 
 		#endregion
@@ -253,11 +261,11 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Button button_modifyTeam;
 		private System.Windows.Forms.Button button_addTeam;
-		private System.Windows.Forms.PictureBox pictureBox_statusLocal;
 		private System.Windows.Forms.Button button_acceptSelectionL;
 		private System.Windows.Forms.PictureBox pictureBox_logoLocal;
 		private System.Windows.Forms.Button button_acceptSelectionV;
 		private System.Windows.Forms.PictureBox pictureBox_logoVisitor;
-		private System.Windows.Forms.PictureBox pictureBox_statusVisitor;
+		private System.Windows.Forms.Label interactiveLabelL;
+		private System.Windows.Forms.Label interactiveLabelV;
 	}
 }

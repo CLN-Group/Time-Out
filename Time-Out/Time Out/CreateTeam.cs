@@ -15,6 +15,8 @@ namespace TimeOut
 {
 	public partial class CreateTeam : Form
 	{
+        // esta variable se utiliza para pedir una confirmacion al usuario
+        bool confirmation = true;
 		string rutaDelArchivo;
 		Team createdTeam = new Team();
 		// Las constantes se utilizan como límite inferior y superior
@@ -24,7 +26,7 @@ namespace TimeOut
 		// Se crea una lista de strings con todos los nombres 
 		// de los equipos guardados para que el nuevo equipo
 		// a crear no repita su nombre, evitando duplicados
-		List<string> titulos = new List<string>();
+		List<string> titulos = null;
 
 
 		int CantidadDeJugadoresIngresados
@@ -32,54 +34,17 @@ namespace TimeOut
 			get { return Convert.ToInt32(this.label_cantPlayers.Text); }
 		}
 
-		/// <summary>
-		/// Agrega todos los nombres de los equipos guardados en la lista generica titulos.
-		/// </summary>
-		void CargarTitulosEquipos()
-		{
-			List<Team> equipos = new List<Team>();
-			if (File.Exists(rutaDelArchivo))
-            {
-                StreamReader flujo = new StreamReader(rutaDelArchivo);
-                XmlSerializer serial = new XmlSerializer(typeof(Team));
-                equipos = (List<Team>)serial.Deserialize(flujo);
-                flujo.Close();
-            }
-			foreach(Team e in equipos)
-			{
-				this.titulos.Add(e.Titulo);
-			}
-		}
-
+		/***************/
+		/* CONSTRUCTOR */
+		/***************/
 		public CreateTeam()
 		{
 			InitializeComponent();
 
 			this.rutaDelArchivo = Main.archivoEquipos;
-			CargarTitulosEquipos();
+			this.titulos = Main.CargarTitulosEquipos();
 		}
-
-		/// <summary>
-		/// Abre un dialogo pidiendo confirmación al usuario para cerrar la ventana.
-		/// <para>Se ejecuta al enviar una señal para cerrar la ventana.</para>
-		/// </summary>
-		private void CreateTeam_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			/* TODO This should not appear after save the information *correctly*
-			DialogResult userResponce = MessageBox.Show("Esta seguro que desea salir sin guardar los datos ingresados?",
-				"Salir sin guardar datos",
-				MessageBoxButtons.OKCancel,
-				MessageBoxIcon.Warning,
-				MessageBoxDefaultButton.Button2);
-			if (userResponce == System.Windows.Forms.DialogResult.Cancel)
-				e.Cancel = true;
-			 */
-		}
-
-		private void button_cancel_Click(object sender, EventArgs e)
-		{
-			this.Close();
-		}
+		
 
         private void button_addPlayer_Click(object sender, EventArgs e)
         {
@@ -136,22 +101,6 @@ namespace TimeOut
 			return true;
 		}
 
-		/// <summary>
-		/// Carga todos los equipos guardados en un archivo XML en una lista de equipos.
-		/// </summary>
-		/// <returns>Una lista genérica de equipos (Teams). Si el archivo no existe retorna NULL</returns>
-		public List<Team> getTeams()
-		{
-			List<Team> lista = null;
-			if (File.Exists(this.rutaDelArchivo))
-			{
-				StreamReader flujo = new StreamReader(this.rutaDelArchivo);
-				XmlSerializer serial = new XmlSerializer(typeof(List<Team>));
-				lista = (List<Team>)serial.Deserialize(flujo);
-				flujo.Close();
-			}
-			return lista;
-		}
 
 		/// <summary>
 		/// Agrega un equipo en una lista.
@@ -174,7 +123,7 @@ namespace TimeOut
 		/// </summary>
 		void GuardarEquipo()
         {
-			List<Team> listaDeEquipos = getTeams();
+			List<Team> listaDeEquipos = Main.CargarEquipos();
 			listaDeEquipos = addTeamToList(this.createdTeam, listaDeEquipos);
 			StreamWriter flujo = new StreamWriter(this.rutaDelArchivo);
 			XmlSerializer serial = new XmlSerializer(typeof(List<Team>));
@@ -182,6 +131,9 @@ namespace TimeOut
 			flujo.Close();
         }
 
+        /// <summary>
+        /// comprueba que los datos ingresados sean validos, guarda la informacion y cierra la ventana
+        /// </summary>
         private void button_save_Click(object sender, EventArgs e)
         {
 			string titulo = this.nameTeamTextBox.Text;
@@ -192,6 +144,8 @@ namespace TimeOut
 				this.createdTeam.NombreDelTecnico = nombreDT;
 				// Los jugadores ya han sidos añadidos.
 				GuardarEquipo();
+                // Desactiva la confirmacion del usuario al cerrar la ventana
+                confirmation = false;
 				this.Close();
 			}
 			else
@@ -205,6 +159,29 @@ namespace TimeOut
 					MessageBoxIcon.Error,
 					MessageBoxDefaultButton.Button1);
 			}
+        }
+
+        private void button_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Abre un dialogo pidiendo confirmación al usuario para cerrar la ventana.
+        /// <para>Se ejecuta al enviar una señal para cerrar la ventana.</para>
+        /// </summary>
+        private void CreateTeam_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (confirmation)
+            {
+                DialogResult userResponce = MessageBox.Show("Esta seguro que desea salir sin guardar los datos ingresados?",
+                    "Salir sin guardar datos",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button2);
+                if (userResponce == System.Windows.Forms.DialogResult.Cancel)
+                    e.Cancel = true;
+            }
         }
 	}
 }

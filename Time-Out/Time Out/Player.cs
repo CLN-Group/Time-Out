@@ -28,6 +28,8 @@ namespace TimeOut
 		 */
 		static string[] validPositions = { "none", "C", "PF", "SF", "SG", "PG" };
 		string posicion;
+		// Indica si el jugador es Titular o Suplente
+		bool titular;
 		// Estadísticas de un partido
 		int libresAnotados = 0;
 		int libresFallados = 0;
@@ -88,6 +90,12 @@ namespace TimeOut
 		{
 			get { return posicion; }
 			set { posicion = value; }
+		}
+		[XmlIgnoreAttribute]
+		public bool Titular
+		{
+			get { return titular; }
+			set { titular = value; }
 		}
 		// Propiedades estadísticas del encuentro específico,
 		// estas no se guardaran en el archivo XML
