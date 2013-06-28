@@ -60,11 +60,12 @@ namespace TimeOut
 				// Load teams
 				this.local = nuevo.Local;
 				this.visitor = nuevo.Visitor;
-				// Show information
+				// Show information available
 				this.label_localTDescription.Text = this.local.Titulo;
 				this.label_visitorTDescription.Text = this.visitor.Titulo;
 				this.button_InitialTeamLocal.Visible = true;
 				this.button_InitialTeamVisitor.Visible = true;
+				this.button_startMatch.Enabled = true;
 			}
 			this.Show();
 		}
@@ -117,6 +118,32 @@ namespace TimeOut
 				}
 			}
 			return titulos;
+		}
+
+		private void button_InitialTeam_Click(object sender, EventArgs e)
+		{
+			List<Player> aux; 
+			if (((Button)sender).Name.Equals("button_InitialTeamLocal"))
+				aux = this.local.Jugadores;
+			else
+				aux = this.visitor.Jugadores;
+			// aux tendra la lista de jugadores del equipo seleccionado
+			SelectInitialTeam nuevo = new SelectInitialTeam(aux);
+			nuevo.Show();
+		}
+
+		private void button_startMatch_Click(object sender, EventArgs e)
+		{
+			if (this.button_InitialTeamLocal.Visible || this.button_InitialTeamVisitor.Visible)
+			{
+				MessageBox.Show("Debes seleccionar la formación inicial de AMBOS equipos!",
+					"Formación inicial no completada",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+			else
+			{
+			}
 		}
 	}
 }

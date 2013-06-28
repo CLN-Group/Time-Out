@@ -29,7 +29,7 @@ namespace TimeOut
 		static string[] validPositions = { "none", "C", "PF", "SF", "SG", "PG" };
 		string posicion;
 		// Indica si el jugador es Titular o Suplente
-		bool titular;
+		bool titular = false;
 		// Estadísticas de un partido
 		int libresAnotados = 0;
 		int libresFallados = 0;
