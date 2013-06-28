@@ -21,8 +21,8 @@ namespace TimeOut
 		Team createdTeam = new Team();
 		// Las constantes se utilizan como límite inferior y superior
 		// de cantidad de jugadores que debe tener el equipo
-		const int cantMinJug = 2;
-		const int cantMaxJug = 4;
+		const int cantMinJug = 5;
+		const int cantMaxJug = 15;
 		// Se crea una lista de strings con todos los nombres 
 		// de los equipos guardados para que el nuevo equipo
 		// a crear no repita su nombre, evitando duplicados

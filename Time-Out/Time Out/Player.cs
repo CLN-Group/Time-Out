@@ -41,6 +41,11 @@ namespace TimeOut
 		int faltasTecnicas = 0;
 		int asistencias = 0;
 		float minutosJugados = 0;
+		//TODO
+        // Estadisticas globales
+		//
+		// Por ahora no tiene
+		// Se agregarán cuando este terminada la ventana del partido
 			
 
 		/***************/
@@ -62,6 +67,10 @@ namespace TimeOut
 		{
 			get { return apellido; }
 			set { apellido = value; }
+		}
+		public string NombreCompleto
+		{
+			get { return apellido+", "+nombre; }
 		}
 		public float Altura
 		{

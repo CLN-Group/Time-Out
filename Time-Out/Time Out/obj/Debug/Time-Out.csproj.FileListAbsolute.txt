@@ -62,3 +62,4 @@ C:\Users\Carlos\Desktop\Time-Out\Time Out\obj\Debug\Time-Out.csproj.GenerateReso
 C:\Users\Carlos\Desktop\Time-Out\Time Out\obj\Debug\en\Time-Out.resources.dll
 C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug\Time-Out.csprojResolveAssemblyReference.cache
 C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug\TimeOut.SelectInitialTeam.resources
+C:\Users\Carlos\Desktop\Time-Out\Time Out\obj\Debug\TimeOut.SelectInitialTeam.resources

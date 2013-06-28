@@ -213,6 +213,7 @@
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "CreateTeam";
 			this.Text = "Ingresar Equipo";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateTeam_FormClosing);

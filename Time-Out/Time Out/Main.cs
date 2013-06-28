@@ -47,6 +47,31 @@ namespace TimeOut
 			if (userResponce == System.Windows.Forms.DialogResult.No)
 				e.Cancel = true;
 		}
+
+		/// <summary>
+		/// Este metodo Muestra o Saca la información de ambos equipos.
+		/// </summary>
+		/// <param name="Show">Con esta variable se indica si muestra la información (True) o la quita (False).</param>
+		private void teamsInformation(bool Show)
+		{
+			if (Show)
+			{
+				this.label_localTDescription.Text = this.local.Titulo;
+				this.label_visitorTDescription.Text = this.visitor.Titulo;
+				this.button_InitialTeamLocal.Visible = true;
+				this.button_InitialTeamVisitor.Visible = true;
+				this.button_startMatch.Enabled = true;
+			}
+			else
+			{
+				this.label_localTDescription.Text = "";
+				this.label_visitorTDescription.Text = "";
+				this.button_InitialTeamLocal.Visible = false;
+				this.button_InitialTeamVisitor.Visible = false;
+				this.button_startMatch.Enabled = false;
+			}
+		}
+
 		/// <summary>
 		/// Abre un dialogo para que el usuario seleccione los equipos para comenzar el encuentro
 		/// </summary>
@@ -61,12 +86,10 @@ namespace TimeOut
 				this.local = nuevo.Local;
 				this.visitor = nuevo.Visitor;
 				// Show information available
-				this.label_localTDescription.Text = this.local.Titulo;
-				this.label_visitorTDescription.Text = this.visitor.Titulo;
-				this.button_InitialTeamLocal.Visible = true;
-				this.button_InitialTeamVisitor.Visible = true;
-				this.button_startMatch.Enabled = true;
+				teamsInformation(true);
 			}
+			else
+				teamsInformation(false); // Hide the displayed information, if any
 			this.Show();
 		}
 
@@ -75,7 +98,9 @@ namespace TimeOut
 			CreateTeam nuevo = new CreateTeam();
 			nuevo.ShowDialog();
 		}
-		/*
+		/*TODO
+		 * Este metodo esta desactivado hasta que se independizen 
+		 * los archivos de jugadores con archivos de equipos
         private void crearJugadorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreatePlayer nuevo = new CreatePlayer();
@@ -122,14 +147,16 @@ namespace TimeOut
 
 		private void button_InitialTeam_Click(object sender, EventArgs e)
 		{
-			List<Player> aux; 
-			if (((Button)sender).Name.Equals("button_InitialTeamLocal"))
-				aux = this.local.Jugadores;
+			List<Player> listaJugadores;
+			Button clickedButton = (Button)sender;
+			if (clickedButton.Name.Equals("button_InitialTeamLocal"))
+				listaJugadores = this.local.Jugadores;
 			else
-				aux = this.visitor.Jugadores;
-			// aux tendra la lista de jugadores del equipo seleccionado
-			SelectInitialTeam nuevo = new SelectInitialTeam(aux);
-			nuevo.Show();
+				listaJugadores = this.visitor.Jugadores;
+			SelectInitialTeam nuevo = new SelectInitialTeam(listaJugadores);
+            nuevo.ShowDialog();
+			if (nuevo.Done)
+				clickedButton.Visible = false;
 		}
 
 		private void button_startMatch_Click(object sender, EventArgs e)
@@ -143,6 +170,9 @@ namespace TimeOut
 			}
 			else
 			{
+				//TODO
+				// COMENZA EL PARTIDO!!
+				MessageBox.Show("!!!CREAME!!!");
 			}
 		}
 	}

@@ -30,14 +30,14 @@
 		{
 			this.title = new System.Windows.Forms.Label();
 			this.groupBox_available = new System.Windows.Forms.GroupBox();
-			this.groupBox_initial = new System.Windows.Forms.GroupBox();
+			this.listBox_availablePlayers = new System.Windows.Forms.ListBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.groupBox_initial = new System.Windows.Forms.GroupBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.listBox_initialPlayers = new System.Windows.Forms.ListBox();
 			this.button_add = new System.Windows.Forms.Button();
 			this.button_remove = new System.Windows.Forms.Button();
 			this.button_finish = new System.Windows.Forms.Button();
-			this.listBox_availablePlayers = new System.Windows.Forms.ListBox();
-			this.listBox_initialPlayers = new System.Windows.Forms.ListBox();
-			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox_available.SuspendLayout();
 			this.groupBox_initial.SuspendLayout();
 			this.SuspendLayout();
@@ -64,6 +64,26 @@
 			this.groupBox_available.TabStop = false;
 			this.groupBox_available.Text = "Jugadores disponibles";
 			// 
+			// listBox_availablePlayers
+			// 
+			this.listBox_availablePlayers.FormattingEnabled = true;
+			this.listBox_availablePlayers.Items.AddRange(new object[] {
+            ""});
+			this.listBox_availablePlayers.Location = new System.Drawing.Point(9, 66);
+			this.listBox_availablePlayers.Name = "listBox_availablePlayers";
+			this.listBox_availablePlayers.Size = new System.Drawing.Size(167, 121);
+			this.listBox_availablePlayers.TabIndex = 1;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(6, 30);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(170, 17);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Seleccione los jugadores:";
+			// 
 			// groupBox_initial
 			// 
 			this.groupBox_initial.Controls.Add(this.label2);
@@ -75,15 +95,28 @@
 			this.groupBox_initial.TabStop = false;
 			this.groupBox_initial.Text = "Jugadores iniciales";
 			// 
-			// label1
+			// label2
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(6, 30);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(170, 17);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Seleccione los jugadores:";
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(6, 30);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(133, 17);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "Jugadores iniciales:";
+			// 
+			// listBox_initialPlayers
+			// 
+			this.listBox_initialPlayers.DisplayMember = "\"Nombre\"";
+			this.listBox_initialPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.listBox_initialPlayers.FormattingEnabled = true;
+			this.listBox_initialPlayers.ItemHeight = 16;
+			this.listBox_initialPlayers.Items.AddRange(new object[] {
+            ""});
+			this.listBox_initialPlayers.Location = new System.Drawing.Point(19, 66);
+			this.listBox_initialPlayers.Name = "listBox_initialPlayers";
+			this.listBox_initialPlayers.Size = new System.Drawing.Size(120, 84);
+			this.listBox_initialPlayers.TabIndex = 3;
 			// 
 			// button_add
 			// 
@@ -104,6 +137,7 @@
 			this.button_remove.TabIndex = 4;
 			this.button_remove.Text = "<<";
 			this.button_remove.UseVisualStyleBackColor = true;
+			this.button_remove.Click += new System.EventHandler(this.button_remove_Click);
 			// 
 			// button_finish
 			// 
@@ -114,39 +148,6 @@
 			this.button_finish.Text = "OK!";
 			this.button_finish.UseVisualStyleBackColor = true;
 			this.button_finish.Click += new System.EventHandler(this.button_finish_Click);
-			// 
-			// listBox_availablePlayers
-			// 
-			this.listBox_availablePlayers.FormattingEnabled = true;
-			this.listBox_availablePlayers.Items.AddRange(new object[] {
-            ""});
-			this.listBox_availablePlayers.Location = new System.Drawing.Point(9, 66);
-			this.listBox_availablePlayers.Name = "listBox_availablePlayers";
-			this.listBox_availablePlayers.Size = new System.Drawing.Size(167, 121);
-			this.listBox_availablePlayers.TabIndex = 1;
-			// 
-			// listBox_initialPlayers
-			// 
-			this.listBox_initialPlayers.DisplayMember = "\"Nombre\"";
-			this.listBox_initialPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.listBox_initialPlayers.FormattingEnabled = true;
-			this.listBox_initialPlayers.ItemHeight = 16;
-			this.listBox_initialPlayers.Items.AddRange(new object[] {
-            ""});
-			this.listBox_initialPlayers.Location = new System.Drawing.Point(19, 66);
-			this.listBox_initialPlayers.Name = "listBox_initialPlayers";
-			this.listBox_initialPlayers.Size = new System.Drawing.Size(120, 84);
-			this.listBox_initialPlayers.TabIndex = 3;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(6, 30);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(133, 17);
-			this.label2.TabIndex = 1;
-			this.label2.Text = "Jugadores iniciales:";
 			// 
 			// SelectInitialTeam
 			// 
@@ -163,6 +164,7 @@
 			this.MaximizeBox = false;
 			this.Name = "SelectInitialTeam";
 			this.Text = "SelectInitialTeam";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectInitialTeam_FormClosing);
 			this.groupBox_available.ResumeLayout(false);
 			this.groupBox_available.PerformLayout();
 			this.groupBox_initial.ResumeLayout(false);
@@ -179,11 +181,11 @@
 		private System.Windows.Forms.ListBox listBox_availablePlayers;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.GroupBox groupBox_initial;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.ListBox listBox_initialPlayers;
+        private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button button_add;
 		private System.Windows.Forms.Button button_remove;
 		private System.Windows.Forms.Button button_finish;
+        public System.Windows.Forms.ListBox listBox_initialPlayers;
 
 	}
 }

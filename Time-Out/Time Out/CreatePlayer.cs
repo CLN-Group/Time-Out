@@ -125,7 +125,7 @@ namespace TimeOut
 				// No se guarda el jugador en ningun archivo por cambios de diseño
 				//GuardarJugador();
 				MessageBox.Show("El jugador ha sido creado correctamente!");
-				this.confirmation = true; // Desactiva el mensaje de confirmación
+				this.confirmation = false; // Desactiva el mensaje de confirmación
 				this.Close();
 			}
 			else
