@@ -9,7 +9,12 @@ namespace TimeOut
     public class Estadisticas
     {
         int asistencias;
-        int puntos;
+		int simplesEncestados;
+		int simplesFallidos;
+        int doblesEncestados;
+		int doblesFallidos;
+		int triplesEncestados;
+		int triplesFallidos;
         int rebotesOfensivos;
         int rebotesDefensivos;
         int robos;
@@ -21,10 +26,40 @@ namespace TimeOut
             get { return asistencias; }
             set { asistencias = value; }
         }
+		public int SimplesEncestados
+		{
+			get { return simplesEncestados; }
+			set { simplesEncestados = value; }
+		}
+		public int SimplesFallidos
+		{
+			get { return simplesFallidos; }
+			set { simplesFallidos = value; }
+		}
+		public int DoblesEncestados
+		{
+			get { return doblesEncestados; }
+			set { doblesEncestados = value; }
+		}
+		public int DoblesFallidos
+		{
+			get { return doblesFallidos; }
+			set { doblesFallidos = value; }
+		}
+		public int TriplesEncestados
+		{
+			get { return triplesEncestados; }
+			set { triplesEncestados = value; }
+		}
+		public int TriplesFallidos
+		{
+			get { return triplesFallidos; }
+			set { triplesFallidos = value; }
+		}
         public int Puntos
         {
-            get { return puntos; }
-            set { puntos = value; }
+            get { return doblesEncestados+triplesEncestados; }
+			set { } // Necesario para guardar al archivo
         }
         public int RebotesOfensivos
         {
@@ -55,7 +90,12 @@ namespace TimeOut
         public Estadisticas()
         {
             asistencias = 0;
-            puntos = 0;
+			simplesEncestados = 0;
+			simplesFallidos = 0;
+			doblesEncestados = 0;
+			doblesFallidos = 0;
+			triplesEncestados = 0;
+			triplesFallidos = 0;
             rebotesOfensivos = 0;
             rebotesDefensivos = 0;
             robos = 0;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace TimeOut
 {
@@ -15,6 +16,9 @@ namespace TimeOut
 		List<Player> jugadores;
 		// Estadísticas de un partido
 		int faltas = 0;
+		int tiemposMuertosRestantes = 0;
+		// Constante que define la cantidad de tiempos muertos maximos
+		const int TOmax = 6;
 
 		/***************/
 		/* PROPIEDADES */
@@ -49,6 +53,12 @@ namespace TimeOut
 			get { return faltas; }
 			set { faltas = value; }
 		}
+		[XmlIgnoreAttribute]
+		public int TiemposMuertosRestantes
+		{
+			get { return tiemposMuertosRestantes; }
+			set { tiemposMuertosRestantes = value; }
+		}
         public List<Player> Jugadores
         {
             get { return jugadores; }
@@ -67,11 +77,23 @@ namespace TimeOut
 			partidosGanados = 0;
 			partidosPerdidos = 0;
 			jugadores = new List<Player>();
+			tiemposMuertosRestantes = 5;
 		}
 		public Team(string Titulo, string NombreDelTecnico = "")
 		{
 			this.titulo = Titulo;
 			this.nombreDT = NombreDelTecnico;
+			partidosGanados = 0;
+			partidosPerdidos = 0;
+			tiemposMuertosRestantes = TOmax;
+		}
+
+		/// <summary>
+		/// Reestablece los tiempos muertos a su valor inicial
+		/// </summary>
+		public void restartTO()
+		{
+			this.tiemposMuertosRestantes = TOmax;
 		}
 
 		public class TeamComparer : IComparer<Team>

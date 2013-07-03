@@ -108,15 +108,15 @@
 			// button_getStatistics
 			// 
 			this.button_getStatistics.BackColor = System.Drawing.Color.LightSteelBlue;
-			this.button_getStatistics.Enabled = false;
 			this.button_getStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_getStatistics.ForeColor = System.Drawing.Color.Red;
 			this.button_getStatistics.Location = new System.Drawing.Point(4, 178);
 			this.button_getStatistics.Name = "button_getStatistics";
 			this.button_getStatistics.Size = new System.Drawing.Size(269, 81);
 			this.button_getStatistics.TabIndex = 5;
-			this.button_getStatistics.Text = "Obtener estadísticas del encuentro";
+			this.button_getStatistics.Text = "Obtener estadísticas del último encuentro";
 			this.button_getStatistics.UseVisualStyleBackColor = false;
+			this.button_getStatistics.Click += new System.EventHandler(this.button_getStatistics_Click);
 			// 
 			// button_startMatch
 			// 
@@ -185,10 +185,10 @@
 			// label_localTDescription
 			// 
 			this.label_localTDescription.AutoSize = true;
-			this.label_localTDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_localTDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label_localTDescription.Location = new System.Drawing.Point(134, 15);
 			this.label_localTDescription.Name = "label_localTDescription";
-			this.label_localTDescription.Size = new System.Drawing.Size(59, 17);
+			this.label_localTDescription.Size = new System.Drawing.Size(66, 17);
 			this.label_localTDescription.TabIndex = 2;
 			this.label_localTDescription.Text = "ninguno";
 			// 
@@ -226,10 +226,10 @@
 			// label_visitorTDescription
 			// 
 			this.label_visitorTDescription.AutoSize = true;
-			this.label_visitorTDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_visitorTDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label_visitorTDescription.Location = new System.Drawing.Point(134, 17);
 			this.label_visitorTDescription.Name = "label_visitorTDescription";
-			this.label_visitorTDescription.Size = new System.Drawing.Size(59, 17);
+			this.label_visitorTDescription.Size = new System.Drawing.Size(66, 17);
 			this.label_visitorTDescription.TabIndex = 2;
 			this.label_visitorTDescription.Text = "ninguno";
 			// 

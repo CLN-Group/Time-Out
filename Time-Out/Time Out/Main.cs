@@ -18,6 +18,7 @@ namespace TimeOut
 		static string folder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\data\");
 		public static string archivoEquipos = folder + "equipos.xml";
 		//string archivoJugadores = folder + "players.xml";
+		public static string archivoPartidos = folder + "partidos.xml";
         Team local = new Team();
         Team visitor = new Team();
 
@@ -129,6 +130,22 @@ namespace TimeOut
 			return listaEquipos;
 		}
 		/// <summary>
+		/// Carga todos los partidos guardados en un archivo XML en una lista generica.
+		/// </summary>
+		/// <returns>Una lista genérica de partidos (Match). Si el archivo no existe retorna NULL</returns>
+		public static List<Match> CargarPartidos()
+		{
+			List<Match> listaPartidos = null;
+			if (File.Exists(archivoPartidos))
+			{
+				StreamReader flujo = new StreamReader(archivoPartidos);
+				XmlSerializer serial = new XmlSerializer(typeof(List<Match>));
+				listaPartidos = (List<Match>)serial.Deserialize(flujo);
+				flujo.Close();
+			}
+			return listaPartidos;
+		}
+		/// <summary>
 		/// Agrega todos los nombres de los equipos guardados en la lista generica titulos.
 		/// </summary>
 		public static List<string> CargarTitulosEquipos()
@@ -144,7 +161,23 @@ namespace TimeOut
 			}
 			return titulos;
 		}
+		
+		/// <summary>
+		/// Carga el último partido jugado
+		/// </summary>
+		/// <returns>Retorna el partido jugado, sino existe retorna NULL</returns>
+		Match loadMatchFromFile()
+		{
+			Match ultimoPartido = null;
+			List<Match> lista = CargarPartidos();
+			if (lista != null)
+				ultimoPartido = lista[ lista.Count-1 ];
+			return ultimoPartido;
+		}
 
+		/**********************************/
+		/* METODOS DE BOTONES PRINCIPALES */
+		/**********************************/
 		private void button_InitialTeam_Click(object sender, EventArgs e)
 		{
 			List<Player> listaJugadores;
@@ -154,7 +187,7 @@ namespace TimeOut
 			else
 				listaJugadores = this.visitor.Jugadores;
 			SelectInitialTeam nuevo = new SelectInitialTeam(listaJugadores);
-            nuevo.ShowDialog();
+			nuevo.ShowDialog();
 			if (nuevo.Done)
 				clickedButton.Visible = false;
 		}
@@ -170,9 +203,26 @@ namespace TimeOut
 			}
 			else
 			{
-				//TODO
-				// COMENZA EL PARTIDO!!
-				MessageBox.Show("!!!CREAME!!!");
+				partido nuevo = new partido(local, visitor);
+				nuevo.ArchivoPartidos = archivoPartidos;
+				nuevo.ShowDialog();
+			}
+		}
+
+		private void button_getStatistics_Click(object sender, EventArgs e)
+		{
+			Match lm = loadMatchFromFile();
+			if (lm != null)
+			{
+				ShowStatistics nuevo = new ShowStatistics(lm);
+				nuevo.ShowDialog();
+			}
+			else
+			{
+				MessageBox.Show("ERROR: no se pudo cargar ningún partido", 
+					"Fallo al leer desde archivo",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
 			}
 		}
 	}

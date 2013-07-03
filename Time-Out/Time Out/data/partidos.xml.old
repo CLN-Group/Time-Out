@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfMatch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Match>
+    <Fecha>2013-07-03T12:38:47.3874-03:00</Fecha>
+    <EquipoLocal>Blanco</EquipoLocal>
+    <EquipoVisitante>Rojo</EquipoVisitante>
+    <EstadisticasLocal>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>1</SimplesEncestados>
+      <SimplesFallidos>1</SimplesFallidos>
+      <DoblesEncestados>2</DoblesEncestados>
+      <DoblesFallidos>6</DoblesFallidos>
+      <TriplesEncestados>6</TriplesEncestados>
+      <TriplesFallidos>3</TriplesFallidos>
+      <Puntos>8</Puntos>
+      <RebotesOfensivos>2</RebotesOfensivos>
+      <RebotesDefensivos>2</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>2</Faltas>
+    </EstadisticasLocal>
+    <EstadisticasVisitante>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>5</SimplesEncestados>
+      <SimplesFallidos>6</SimplesFallidos>
+      <DoblesEncestados>1</DoblesEncestados>
+      <DoblesFallidos>3</DoblesFallidos>
+      <TriplesEncestados>3</TriplesEncestados>
+      <TriplesFallidos>1</TriplesFallidos>
+      <Puntos>4</Puntos>
+      <RebotesOfensivos>1</RebotesOfensivos>
+      <RebotesDefensivos>5</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>2</Faltas>
+    </EstadisticasVisitante>
+    <JugadoresLocales>
+      <string>Gonzales, Andres</string>
+      <string>Gonzáles, Ariel</string>
+      <string>Gonzales, Alfonso</string>
+      <string>Gonzales, Martin</string>
+      <string>Gonzales, Mauro</string>
+      <string>Gonzales, Milton</string>
+    </JugadoresLocales>
+    <JugadoresVisitantes>
+      <string>Gonzales, Matias</string>
+      <string>Gorrinho, Emanuel</string>
+      <string>Gimenez, Adrian</string>
+      <string>Cabrales, Milton</string>
+      <string>Silva, Rogrigo</string>
+      <string>Yosefo, Murray</string>
+      <string>Gonzales, Terry</string>
+      <string>Del Potro, Martin</string>
+      <string>Robredinga, Tomas</string>
+      <string>Rodick, Andres</string>
+      <string>Morales, Luciano</string>
+    </JugadoresVisitantes>
+  </Match>
+  <Match>
+    <Fecha>2013-07-03T12:56:46.8354-03:00</Fecha>
+    <EquipoLocal>Blanco</EquipoLocal>
+    <EquipoVisitante>Azul</EquipoVisitante>
+    <EstadisticasLocal>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>5</SimplesEncestados>
+      <SimplesFallidos>2</SimplesFallidos>
+      <DoblesEncestados>4</DoblesEncestados>
+      <DoblesFallidos>5</DoblesFallidos>
+      <TriplesEncestados>5</TriplesEncestados>
+      <TriplesFallidos>3</TriplesFallidos>
+      <Puntos>9</Puntos>
+      <RebotesOfensivos>1</RebotesOfensivos>
+      <RebotesDefensivos>5</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>4</Faltas>
+    </EstadisticasLocal>
+    <EstadisticasVisitante>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>2</SimplesEncestados>
+      <SimplesFallidos>0</SimplesFallidos>
+      <DoblesEncestados>4</DoblesEncestados>
+      <DoblesFallidos>5</DoblesFallidos>
+      <TriplesEncestados>5</TriplesEncestados>
+      <TriplesFallidos>3</TriplesFallidos>
+      <Puntos>9</Puntos>
+      <RebotesOfensivos>1</RebotesOfensivos>
+      <RebotesDefensivos>4</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>3</Faltas>
+    </EstadisticasVisitante>
+    <JugadoresLocales>
+      <string>Gonzales, Andres</string>
+      <string>Gonzáles, Ariel</string>
+      <string>Gonzales, Alfonso</string>
+      <string>Gonzales, Martin</string>
+      <string>Gonzales, Mauro</string>
+      <string>Gonzales, Milton</string>
+    </JugadoresLocales>
+    <JugadoresVisitantes>
+      <string>Gutierrez, Lionel </string>
+      <string>Gonzáles, Arturo</string>
+      <string>Gonzales, Joses</string>
+      <string>Alfonzo, Pepe</string>
+      <string>Kanzaska, Gido</string>
+      <string>Casanoze, Pedro</string>
+      <string>Dieger, Roger</string>
+      <string>Alfonsingo, Julio</string>
+      <string>Panginho, Jorge</string>
+      <string>Quiroga, Jose</string>
+    </JugadoresVisitantes>
+  </Match>
+</ArrayOfMatch>

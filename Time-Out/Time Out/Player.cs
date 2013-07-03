@@ -41,6 +41,8 @@ namespace TimeOut
 		int faltasTecnicas = 0;
 		int asistencias = 0;
 		float minutosJugados = 0;
+		int rebotesOfensivos;
+		int rebotesDefensivos;
 		//TODO
         // Estadisticas globales
 		//
@@ -108,6 +110,18 @@ namespace TimeOut
 		}
 		// Propiedades estadísticas del encuentro específico,
 		// estas no se guardaran en el archivo XML
+		[XmlIgnoreAttribute]
+		public int RebotesOfensivos
+		{
+			get { return rebotesOfensivos; }
+			set { rebotesOfensivos = value; }
+		}
+		[XmlIgnoreAttribute]
+		public int RebotesDefensivos
+		{
+			get { return rebotesDefensivos; }
+			set { rebotesDefensivos = value; }
+		}
 		[XmlIgnoreAttribute]
 		public int TirosLibresAnotados
 		{

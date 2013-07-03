@@ -32,12 +32,12 @@ namespace TimeOut
             get { return equipoVisitante; }
             set { equipoVisitante = value; }
         }
-        public Estadisticas StLocal
+        public Estadisticas EstadisticasLocal
         {
             get { return stLocal; }
             set { stLocal = value; }
         }
-        public Estadisticas StVisitante
+		public Estadisticas EstadisticasVisitante
         {
             get { return stVisitante; }
             set { stVisitante = value; }

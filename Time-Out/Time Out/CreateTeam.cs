@@ -111,9 +111,7 @@ namespace TimeOut
 		List<Team> addTeamToList(Team equipo, List<Team> listaEquipos)
 		{
 			if (listaEquipos == null)
-			{
 				listaEquipos = new List<Team>();
-			}
 			listaEquipos.Add(equipo);
 			return listaEquipos;
 		}

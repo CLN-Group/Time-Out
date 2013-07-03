@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Counter.cs" />
     <Compile Include="CreatePlayer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,11 +84,24 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Match.cs" />
+    <Compile Include="partido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="partido.Designer.cs">
+      <DependentUpon>partido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro.cs" />
     <Compile Include="SelectInitialTeam.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SelectInitialTeam.Designer.cs">
       <DependentUpon>SelectInitialTeam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectPlayer.Designer.cs">
+      <DependentUpon>SelectPlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectTeams.cs">
       <SubType>Form</SubType>
@@ -98,6 +112,18 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowEvents.Designer.cs">
+      <DependentUpon>ShowEvents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowStatistics.Designer.cs">
+      <DependentUpon>ShowStatistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="Statics.cs" />
     <Compile Include="Team.cs" />
     <EmbeddedResource Include="CreatePlayer.resx">
@@ -112,8 +138,14 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="partido.resx">
+      <DependentUpon>partido.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectInitialTeam.resx">
       <DependentUpon>SelectInitialTeam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectPlayer.resx">
+      <DependentUpon>SelectPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectTeams.resx">
       <DependentUpon>SelectTeams.cs</DependentUpon>
@@ -128,6 +160,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ShowEvents.resx">
+      <DependentUpon>ShowEvents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowStatistics.resx">
+      <DependentUpon>ShowStatistics.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -163,6 +201,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\change.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\change.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
