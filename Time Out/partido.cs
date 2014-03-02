@@ -17,21 +17,22 @@ namespace TimeOut
     {
         Team local;   // Equipo local
 		Team visitor; // Equipo visitante
-		List<Registro> minAmin = new List<Registro>();
+		List<Registro> minuteToMinute = new List<Registro>();
 		Counter count = new Counter();
 		// Constante que guarda la cantidad limite 
 		// de faltas permitidas previo a la expulsión
-		const int maxFaltas = 5;
+		const int maxFaltas = 6;
 		/*
 		 * Hay dos largos procesos en un partido, 
 		 * suceden cuando hay Falta o cuando hay Balon Afuera.
 		 */
-		bool procesoFalta = false;
+		bool procesoFalta       = false;
 		bool procesoBalonAfuera = false;
+        bool localTeamShoot     = false;
 		// Cantidad de tiros libres a tirar tras la falta
 		int tirosLibresDisponibles = 0;
-		// Esta variable indica si se debe cerrar la ventana.
-		// Evita cerrados accidentales
+        // This will be checked in the close event,
+        // avoiding unnintentional actions and lose of data.
 		bool closeWindow = false;
 		// Clase para guardar el registro completo del partido
 		Match partidoJugado;
@@ -53,11 +54,16 @@ namespace TimeOut
         {
             InitializeComponent();
 
-            local = a;
+            local   = a;
             visitor = b;
-            actualizarListbox();
-			this.label_tituloLocal.Text = local.Titulo;
-			this.label_tituloVisitante.Text = visitor.Titulo;
+
+            if (a != null && b != null) {
+                actualizarListbox();
+			    this.label_tituloLocal.Text     = local.Name;
+			    this.label_tituloVisitante.Text = visitor.Name;
+                this.label_LTO_restante.Text    = Team.TOmax.ToString();
+                this.label_VTO_restante.Text    = Team.TOmax.ToString();
+            }
         }
 
         public void actualizarListbox()
@@ -65,29 +71,37 @@ namespace TimeOut
             cargarTitulares();
             cargarVisitantes();
         }
+
         void cargarTitulares()
         {
-            listBox1.Items.Clear();
-            comboBox1.Items.Clear();
-            foreach (Player p in this.local.Jugadores)
-                if (p.Titular)
-                    listBox1.Items.Add(p);
+            listBox_LocalRoster.Items.Clear();
+            comboBox_LocalSubs.Items.Clear();
+
+            foreach (Player p in this.local.Players) {
+                if (p.Starter)
+                    listBox_LocalRoster.Items.Add(p);
                 else
-                    comboBox1.Items.Add(p);
-            listBox1.DisplayMember = "NombreCompleto";
-            comboBox1.DisplayMember = "NombreCompleto";
+                    comboBox_LocalSubs.Items.Add(p);
+            }
+
+            listBox_LocalRoster.DisplayMember = "CompleteName";
+            comboBox_LocalSubs.DisplayMember  = "CompleteName";
         }
+
         void cargarVisitantes()
         {
-            listBox2.Items.Clear();
-            comboBox2.Items.Clear();
-            foreach (Player p in this.visitor.Jugadores)
-                if (p.Titular)
-                    listBox2.Items.Add(p);
+            listBox_VisitorRoster.Items.Clear();
+            comboBox_VisitorSubs.Items.Clear();
+
+            foreach (Player p in this.visitor.Players) {
+                if (p.Starter)
+                    listBox_VisitorRoster.Items.Add(p);
                 else
-                    comboBox2.Items.Add(p);
-            listBox2.DisplayMember = "NombreCompleto";
-            comboBox2.DisplayMember = "NombreCompleto";
+                    comboBox_VisitorSubs.Items.Add(p);
+            }
+
+            listBox_VisitorRoster.DisplayMember = "CompleteName";
+            comboBox_VisitorSubs.DisplayMember  = "CompleteName";
         }
 
 		/// <summary>
@@ -100,7 +114,9 @@ namespace TimeOut
 		{
 			if (listaPartidos == null)
 				listaPartidos = new List<Match>();
+
 			listaPartidos.Add(partido);
+
 			return listaPartidos;
 		}
 
@@ -109,9 +125,12 @@ namespace TimeOut
 		/// </summary>
 		void guardarPartidoEnArchivo()
 		{
+            // Load previous matchs from file
 			List<Match> listaDePartidos = Main.CargarPartidos();
+            // Add the new match to the list
 			listaDePartidos = addMatchToList(this.partidoJugado, listaDePartidos);
-			StreamWriter flujo = new StreamWriter(this.archivoPartidos);
+            // Store the updated list to the file
+			StreamWriter flujo   = new StreamWriter(this.archivoPartidos);
 			XmlSerializer serial = new XmlSerializer(typeof(List<Match>));
 			serial.Serialize(flujo, listaDePartidos);
 			flujo.Close();
@@ -124,15 +143,17 @@ namespace TimeOut
 		{
 			// Crea la lista
 			this.partidoJugado = new Match();
-			// Agrega la información
-			partidoJugado.Fecha = DateTime.Now;
-			partidoJugado.EquipoLocal = local.Titulo;
-			partidoJugado.EquipoVisitante = visitor.Titulo;
+
+			// Add match's metadata
+			partidoJugado.Fecha           = DateTime.Now;
+			partidoJugado.EquipoLocal     = local.Name;
+			partidoJugado.EquipoVisitante = visitor.Name;
+
 			// Agrega los nombres de TODOS los jugadores
 			// y sus respectivas estadísticas
-			foreach(Player p in local.Jugadores)
+			foreach(Player p in local.Players)
 			{
-				partidoJugado.JugadoresLocales.Add(p.NombreCompleto);
+				partidoJugado.JugadoresLocales.Add(p.CompleteName);
 				// Agrega las estadísticas sumandolas a las actuales
 				partidoJugado.EstadisticasLocal.Asistencias += p.AsistenciasLogradas;
 				partidoJugado.EstadisticasLocal.SimplesEncestados += p.TirosLibresAnotados;
@@ -145,9 +166,9 @@ namespace TimeOut
 				partidoJugado.EstadisticasLocal.RebotesOfensivos += p.RebotesOfensivos;
 				partidoJugado.EstadisticasLocal.Faltas += p.FaltasCometidas;
 			}
-			foreach(Player p in visitor.Jugadores)
+			foreach(Player p in visitor.Players)
 			{
-				partidoJugado.JugadoresVisitantes.Add(p.NombreCompleto);
+				partidoJugado.JugadoresVisitantes.Add(p.CompleteName);
 				// Agrega las estadísticas sumandolas a las actuales
 				partidoJugado.EstadisticasVisitante.Asistencias += p.AsistenciasLogradas;
 				partidoJugado.EstadisticasVisitante.SimplesEncestados += p.TirosLibresAnotados;
@@ -169,46 +190,53 @@ namespace TimeOut
 		void activarContinuacion()
 		{
 			timer1.Stop();
-			button1.Text = "Ready";
-			button1.Enabled = true;
+			button1.Text           = "Comenzar";
+			button1.Enabled        = true;
 			this.button1.BackColor = Color.DeepSkyBlue;
 		}
+
 		/// <summary>
 		/// Congela/detiene el reloj del partido y desactiva el botón de Comienzo
 		/// </summary>
 		void congelarContinuacion()
 		{
 			timer1.Stop();
-			button1.Text = "Stopped";
-			button1.Enabled = false;
+			button1.Text           = "Parado";
+			button1.Enabled        = false;
 			this.button1.BackColor = Color.Red;
 		}
+
 		/// <summary>
 		/// Pone el reloj a correr y desactiva el botón
 		/// </summary>
 		void correrContinuacion()
 		{
-			timer1.Enabled = true;
-			button1.Text = "Running!";
-			button1.Enabled = false;
+			timer1.Enabled         = true;
+			button1.Text           = "Pausar";
+			button1.Enabled        = true;
 			this.button1.BackColor = Color.Red;
 		}
+
 		/// <summary>
-		/// Finaliza el reloj y desactiva el botón
+		/// Evento llamado cuando finaliza el encuentro.
 		/// </summary>
-		void terminarContinuacion()
+		void finishMatch()
 		{
 			timer1.Stop();
-			button1.Text = "Finished";
-			button1.Enabled = false;
-			this.button1.BackColor = Color.Black;
-			// Prepara la finalización de la ventana
+
+			button1.Text      = "Finalizado";
+			button1.Enabled   = false;
+			button1.BackColor = Color.Black;
+
+			// Almacena la información recolectada del encuentro
 			guardarInformación();
-			// Desactiva la pregunta al salir
-			closeWindow = true;
-			// Muestra el minuto a minuto
-			ShowEvents nuevo = new ShowEvents(this.minAmin);
+
+			// Display a minute-to-minute chart
+			ShowEvents nuevo = new ShowEvents(this.minuteToMinute);
 			nuevo.ShowDialog();
+
+            // Desactiva la pregunta al salir
+            closeWindow = true;
 			this.Close();
 		}
 		
@@ -227,6 +255,7 @@ namespace TimeOut
 			desactivarTO();
 			desactivarPuntos();
 			desactivarFalta();
+            desactivarPerdida();
 			desactivarRebotes();
 			if (this.lblCuarto.Text[0] == '1')
 				this.lblCuarto.Text = "2do Cuarto";
@@ -235,7 +264,7 @@ namespace TimeOut
 			else if (this.lblCuarto.Text[0] == '3')
 				this.lblCuarto.Text = "4to Cuarto";
 			else
-				terminarContinuacion();
+				finishMatch();
 		}
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -311,17 +340,28 @@ namespace TimeOut
 		}
 		#endregion
 
-		void activarFalta()
-		{
-			button_faltaL.Enabled = true;
-			button_faltaV.Enabled = true;
-		}
-		void desactivarFalta()
-		{
-			button_faltaL.Enabled = false;
-			button_faltaV.Enabled = false;
-		}
-
+        void activarFalta()
+        {
+            button_faltaL.Enabled = true;
+            button_faltaV.Enabled = true;
+        }
+        void desactivarFalta()
+        {
+            button_faltaL.Enabled = false;
+            button_faltaV.Enabled = false;
+        }
+        
+        void activarPerdida()
+        {
+            //button_perdidaL.Enabled = true;
+            //button_perdidaV.Enabled = true;
+        }
+        void desactivarPerdida()
+        {
+            //button_perdidaL.Enabled = false;
+            //button_perdidaV.Enabled = false;
+        }
+        
 		void activarCambio()
 		{
 			this.button_changeL.Visible = true;
@@ -395,11 +435,11 @@ namespace TimeOut
 			if (defensivoLocal)
 			{
 				this.btn_rebote_Defensivo_L.Visible = true;
-				this.btn_rebote_Ofensivo_V.Visible = true;
+				this.btn_rebote_Ofensivo_V.Visible  = true;
 			}
 			else
 			{
-				this.btn_rebote_Ofensivo_L.Visible = true;
+				this.btn_rebote_Ofensivo_L.Visible  = true;
 				this.btn_rebote_Defensivo_V.Visible = true;
 			}
 		}
@@ -419,41 +459,43 @@ namespace TimeOut
 
 
 		#region Registros
+
+
 		void registrarSimple(string nombreJugador, bool encestado = true)
 		{
 			string cuarto = lblCuarto.Text[0].ToString();
 			string evento = (encestado) ? "Tiro Libre Anotado" : "Tiro Libre Fallado";
-			Registro r = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
-			minAmin.Add(r);
+			Registro r    = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
+			minuteToMinute.Add(r);
 		}
 		void registrarDoble(string nombreJugador, bool encestado = true)
 		{
 			string cuarto = lblCuarto.Text[0].ToString();
 			string evento = (encestado) ? "Doble Anotado" : "Doble Fallado";
-			Registro r = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
-			minAmin.Add(r);
+            Registro r    = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
+			minuteToMinute.Add(r);
 		}
 		void registrarTriple(string nombreJugador, bool encestado = true)
 		{
 			string cuarto = lblCuarto.Text[0].ToString();
 			string evento = (encestado) ? "Triple Anotado" : "Triple Fallado";
-			Registro r = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
-			minAmin.Add(r);
+			Registro r    = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
+			minuteToMinute.Add(r);
 		}
 		void registrarRebote(string nombreJugador, bool ofensivo = false)
 		{
 			string cuarto = lblCuarto.Text[0].ToString();
 			string evento = (ofensivo) ? "Rebote Ofensivo" : "Rebote Defensivo";
-			Registro r = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
-			minAmin.Add(r);
+			Registro r    = new Registro(cuarto, this.label_timer.Text, evento, nombreJugador);
+			minuteToMinute.Add(r);
 		}
 		void registrarFalta(string nombreJugador)
 		{
 			string cuarto = lblCuarto.Text[0].ToString();
-			Registro r = new Registro(cuarto, this.label_timer.Text, "Falta", nombreJugador);
-			minAmin.Add(r);
+			Registro r    = new Registro(cuarto, this.label_timer.Text, "Falta", nombreJugador);
+			minuteToMinute.Add(r);
 		}
-		#endregion
+
 
 		/// <summary>
 		/// Registra una canasta simple, doble o triple Encestada. Cambia el anotador del partido
@@ -463,62 +505,65 @@ namespace TimeOut
 		/// <param name="local">Si es falso, corresponde al equipo visitante</param>
 		void anotacion(int valor, Player jugador, bool local = true)
 		{
-			if (local)
-			{
-				int pts = Convert.ToInt32(this.label_ptsLocal.Text);
-				pts += valor;
-				this.label_ptsLocal.Text = pts.ToString();
-			}
-			else
-			{
-				int pts = Convert.ToInt32(this.label_ptsVsitor.Text);
-				pts += valor;
-				this.label_ptsVsitor.Text = pts.ToString();
-			}
-			if (valor == 1)
-			{
-				jugador.TirosLibresAnotados++;
-				registrarSimple(jugador.NombreCompleto);
-			}
-			else if (valor == 2)
-			{
-				jugador.PuntosDoblesAnotados++;
-				registrarDoble(jugador.NombreCompleto);
-			}
-			else if (valor == 3)
-			{
-				jugador.PuntosTriplesAnotados++;
-				registrarTriple(jugador.NombreCompleto);
-			}
+            switch (valor)
+            {
+                case 1:
+                    jugador.TirosLibresAnotados++;
+                    registrarSimple(jugador.CompleteName);
+                    break;
+                case 2:
+                    jugador.PuntosDoblesAnotados++;
+                    registrarDoble(jugador.CompleteName);
+                    break;
+                case 3:
+                    jugador.PuntosTriplesAnotados++;
+                    registrarTriple(jugador.CompleteName);
+                    break;
+            }
+
+            Label score = null;
+
+			if (local) 
+                score = this.label_ptsLocal;
+            else 
+                score = this.label_ptsVsitor;
+
+			int pts     = Convert.ToInt32(score.Text) + valor;
+			score.Text = pts.ToString();
 		}
+
 		/// <summary>
-		/// Registra una canasta simple, doble o triple Fallida. NO cambia el anotador del partido
+		/// Registra una canasta simple, doble o triple Fallida. 
+        /// Of course it does not change the scorer
 		/// </summary>
 		/// <param name="valor">Puede ser 1, 2 o 3</param>
 		/// <param name="jugador">Jugador al que se le asignara el fallo</param>
 		void fallo(int valor, Player jugador)
 		{
-			if (valor == 1)
-			{
-				jugador.TirosLibresFallados++;
-				registrarTriple(jugador.NombreCompleto, false);
-			}
-			else if (valor == 2)
-			{
-				jugador.PuntosDoblesFallados++;
-				registrarDoble(jugador.NombreCompleto, false);
-			}
-			else if (valor == 3)
-			{
-				jugador.PuntosTriplesFallados++;
-				registrarTriple(jugador.NombreCompleto, false);
-			}
+            switch (valor)
+            {
+                case 1:
+                    jugador.TirosLibresFallados++;
+				    registrarSimple(jugador.CompleteName, false);
+                    break;
+                case 2:
+                    jugador.PuntosDoblesFallados++;
+				    registrarDoble(jugador.CompleteName, false);
+                    break;
+                case 3:
+                    jugador.PuntosTriplesFallados++;
+				    registrarTriple(jugador.CompleteName, false);
+                    break;
+            }
 		}
 
-		/********************/
-		/* METODOS LLAMADOS */
-		/*  POR EL USUARIO  */
-		/********************/
+        #endregion
+
+
+        // ******************** //
+		// * METODOS LLAMADOS * //
+		// *  POR EL USUARIO  * //
+		// ******************** //
 
 		/// <summary>
 		/// Sucede cuando el usuario presiona el boton de "Comienzo" del partido
@@ -526,20 +571,46 @@ namespace TimeOut
 		private void button1_Click(object sender, EventArgs e)
 		{	
 			desactivarCambio();
+            desactivarRebotes();
+            desactivarPuntos();
+            desactivarPerdida();
+            desactivarFalta();
+            desactivarLibreLocal();
+            desactivarLibreVisitante();
+
 			if (procesoFalta)
 			{
 				MessageBox.Show("Se continua con los tiros libres..");
 				congelarContinuacion();
-				// No podemos saber quien estaba tirando..
-				activarLibreLocal();
-				activarLibreVisitante();
+                activarCambio();
+
+                // Check which team received fault and enable its free shoots
+                if (localTeamShoot)
+				    activarLibreLocal();
+                else
+				    activarLibreVisitante();
+
+                localTeamShoot = false;
 			}
 			else
 			{
-				activarFalta();
-				correrContinuacion();
-				activarTO();
-				activarPuntos();
+                // Check if time is running...
+                if (timer1.Enabled) 
+                { //... User want to stop timing
+                    desactivarPerdida();
+                    desactivarPuntos();
+                    desactivarFalta();
+                    activarContinuacion();
+                    activarCambio();
+                }
+                else
+                { //... User want to continue timing
+                    activarFalta();
+                    activarPerdida();
+                    activarTO();
+                    activarPuntos();
+                    correrContinuacion();
+                }
 			}
 		}
 
@@ -552,15 +623,24 @@ namespace TimeOut
 			// Parar reloj y dejarlo a disposición del usuario
 			activarContinuacion();
 			activarCambio();
-			// Desactiva los tiempos muertos
+
+			// Desactiva los controles no disponibles
 			desactivarTO();
 			desactivarPuntos();
 			desactivarFalta();
+            desactivarPerdida();
 			desactivarLibreLocal();
+            desactivarRebotes();
+
 			// Asigna los tiempos muertos
 			local.TiemposMuertosRestantes--;
+            this.label_LTO_restante.Text = local.TiemposMuertosRestantes.ToString();
 			if (local.TiemposMuertosRestantes == 0)
 				this.LocalTO.Enabled = false;
+
+            if (procesoFalta) {
+                localTeamShoot = true;
+            }
 		}
 
 		/// <summary>
@@ -572,13 +652,18 @@ namespace TimeOut
 			// Parar reloj y dejarlo a disposición del usuario
 			activarContinuacion();
 			activarCambio();
-			// Desactiva los tiempos muertos
+
+            // Desactiva los controles no disponibles
 			desactivarTO();
 			desactivarPuntos();
 			desactivarFalta();
+            desactivarPerdida();
 			desactivarLibreVisitante();
+            desactivarRebotes();
+
 			// Asigna los tiempos muertos
 			visitor.TiemposMuertosRestantes--;
+            this.label_VTO_restante.Text = visitor.TiemposMuertosRestantes.ToString();
 			if (visitor.TiemposMuertosRestantes == 0)
 				this.VisitorTO.Enabled = false;
 		}
@@ -588,12 +673,12 @@ namespace TimeOut
 		/// </summary>
 		private void button2_Click(object sender, EventArgs e)
 		{
-			if (listBox1.SelectedItem != null && comboBox1.SelectedItem != null)
+			if (listBox_LocalRoster.SelectedItem != null && comboBox_LocalSubs.SelectedItem != null)
 			{
-				Player p = (Player)listBox1.SelectedItem;
-				p.Titular = false;
-				p = (Player)comboBox1.SelectedItem;
-				p.Titular = true;
+				Player p = (Player)listBox_LocalRoster.SelectedItem;
+				p.Starter = false;
+				p = (Player)comboBox_LocalSubs.SelectedItem;
+				p.Starter = true;
 				// Actualizar
 				cargarTitulares();
 			}
@@ -604,42 +689,40 @@ namespace TimeOut
 		/// </summary>
 		private void button3_Click(object sender, EventArgs e)
 		{
-			if (listBox2.SelectedItem != null && comboBox2.SelectedItem != null)
+			if (listBox_VisitorRoster.SelectedItem != null && comboBox_VisitorSubs.SelectedItem != null)
 			{
-				Player p = (Player)listBox2.SelectedItem;
-				p.Titular = false;
-				p = (Player)comboBox2.SelectedItem;
-				p.Titular = true;
+				Player p = (Player)listBox_VisitorRoster.SelectedItem;
+				p.Starter = false;
+				p = (Player)comboBox_VisitorSubs.SelectedItem;
+				p.Starter = true;
 				// Actualizar
 				cargarVisitantes();
 			}
 		}
 
 		/// <summary>
-		/// Sucede cuando el equipo LOCAL comente una falta
+        /// Sucede cuando el equipo LOCAL comete una falta
 		/// </summary>
 		private void button_faltaL_Click(object sender, EventArgs e)
 		{
 			congelarContinuacion();
-			this.button_faltaV.Enabled = false;
+            desactivarFalta();
+            desactivarPerdida();
 			desactivarTOLocal();
-			if (listBox1.SelectedItem != null)
-			{
-				// Desactiva el boton para que 
-				// el usuario no lo vuelva a presionar
-				this.button_faltaL.Enabled = false;
-				
-				// Agrega la Falta al Jugador y Registra el evento
-				Player aux = (Player)listBox1.SelectedItem;
-				aux.FaltasCometidas++;
-				registrarFalta(aux.NombreCompleto);
-				// Si el jugador llego al limite de faltas
-				// se lo echa del partido
-				if (aux.FaltasCometidas == maxFaltas)
-					listBox1.Items.Remove(aux);
 
-				//Preguntamos si estaba en posicion de Tiro
-				DialogResult userResponce = MessageBox.Show("El jugador estaba en posicion de Tiro??",
+			if (listBox_LocalRoster.SelectedItem != null)
+			{				
+				// Agrega la Falta al Jugador y Registra el evento
+				Player p = (Player)listBox_LocalRoster.SelectedItem;
+				p.FaltasCometidas++;
+				registrarFalta(p.CompleteName);
+
+				// Fire player from game if reached limit of faults committed
+				if (p.FaltasCometidas == maxFaltas)
+					listBox_LocalRoster.Items.Remove(p);
+
+				// Check if player was shooting while received the fault
+				DialogResult userResponce = MessageBox.Show("El jugador estaba en posicion de Tiro?",
 					"Posicion de tiro",
 					MessageBoxButtons.YesNo,
 					MessageBoxIcon.Question);
@@ -661,37 +744,37 @@ namespace TimeOut
 			}
 			else // No se conoce el jugador que realizo la falta
 			{
-				SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(local.Players);
 				nuevo.ShowDialog();
-				this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				button_faltaL_Click(sender, e);
-				//MessageBox.Show("Debe seleccionar el jugador que hizo la falta");
 			}
 		}
+
+
 		/// <summary>
-		/// Sucede cuando el equipo VISITANTE comente una falta
+		/// Sucede cuando el equipo VISITANTE comete una falta
 		/// </summary>
 		private void button_faltaV_Click(object sender, EventArgs e)
 		{
 			congelarContinuacion();
-			this.button_faltaL.Enabled = false;
+            desactivarFalta();
+            desactivarPerdida();
 			desactivarTOVisitante();
-			if (listBox2.SelectedItem != null)
+
+			if (listBox_VisitorRoster.SelectedItem != null)
 			{
-				// Desactiva el boton para que 
-				// el usuario no lo vuelva a presionar
-				this.button_faltaV.Enabled = false;
-
 				// Agrega la Falta al Jugador y Registra el evento
-				Player aux = (Player)listBox2.SelectedItem;
-				aux.FaltasCometidas++;
-				registrarFalta(aux.NombreCompleto);
-				// Se echa el jugador de ser necesario
-				if (aux.FaltasCometidas == maxFaltas)
-					listBox2.Items.Remove(aux);
+				Player p = (Player)listBox_VisitorRoster.SelectedItem;
+				p.FaltasCometidas++;
+				registrarFalta(p.CompleteName);
 
-				//Preguntamos si estaba en posicion de Tiro
-				DialogResult userResponce = MessageBox.Show("El jugador estaba en posicion de Tiro??",
+                // Fire player from game if reached limit of faults committed
+				if (p.FaltasCometidas == maxFaltas)
+					listBox_VisitorRoster.Items.Remove(p);
+
+                // Check if player was shooting while received the fault
+				DialogResult userResponce = MessageBox.Show("El jugador estaba en posicion de Tiro?",
 					"Posicion de tiro",
 					MessageBoxButtons.YesNo,
 					MessageBoxIcon.Question);
@@ -713,9 +796,9 @@ namespace TimeOut
 			}
 			else // No se conoce el jugador que realizo la falta
 			{
-				SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 				nuevo.ShowDialog();
-				this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				button_faltaV_Click(sender, e);
 			}
 		}
@@ -728,19 +811,24 @@ namespace TimeOut
 		{
 			// Detiene el reloj
 			timer1.Enabled = false;
-			Player aux = (Player)listBox1.SelectedItem;
+			Player aux = (Player)listBox_LocalRoster.SelectedItem;
 			if (aux != null)
 			{
 				anotacion(2, aux);
-				// Le cometieron falta via tiro
-				//if (this.button_faltaL.Enabled == false)
+
+                desactivarPuntos();
+                desactivarRebotes();
+                desactivarFalta();
+                desactivarPerdida();
+
+				// Check if player has received a fault while shooting
 				if (procesoFalta)
 				{
 					// Cambia la interfaz del usuario
 					activarTOLocal();
 					activarLibreLocal();
 					desactivarPuntos();
-					// Tira 1 tiro libre
+					// Tira 1 tiro libre al recibir falta en zona de 2 punto
 					tirosLibresDisponibles = 1;
 					//TODO
 					// Muestra el Estado
@@ -749,19 +837,16 @@ namespace TimeOut
 				else
 				{
 					desactivarTOLocal();
-					desactivarCambio();
-					desactivarPuntos();
-					desactivarRebotes();
-					desactivarFalta();
+					
 					// Activa el boton de Comienzo
 					activarContinuacion();
 				}
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(local.Players);
 				nuevo.ShowDialog();
-				this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_DobleEns_L_Click(sender, e);
 			}
 		}
@@ -773,37 +858,40 @@ namespace TimeOut
 		{
 			// Detiene el reloj
 			timer1.Enabled = false;
-			Player aux = (Player)listBox2.SelectedItem;
+			Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 			if (aux != null)
 			{
 				anotacion(2, aux, false);
-				// Le cometieron falta via tiro
+
+                desactivarPuntos();
+                desactivarRebotes();
+                desactivarFalta();
+                desactivarPerdida();
+
+                // Check if player has received a fault while shooting
 				if (procesoFalta)
 				{
 					// Cambia la interfaz gráfica
 					activarTOVisitante();
 					activarLibreVisitante();
 					desactivarPuntos();
-					//congelarContinuacion();
+                    // Tira 1 tiro libre al recibir falta en zona de 2 punto
 					// Tira 1 tiro libre
 					tirosLibresDisponibles = 1;  
 				}
 				else
 				{
 					desactivarTOVisitante();
-					desactivarCambio();
-					desactivarPuntos();
-					desactivarRebotes();
-					desactivarFalta();
+
 					// Activa el boton de Comienzo
 					activarContinuacion();
 				}
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 				nuevo.ShowDialog();
-				this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_dobleEncestado_V_Click(sender, e);
 			}
 		}
@@ -815,12 +903,17 @@ namespace TimeOut
 		{
 			// Detiene el reloj
 			timer1.Enabled = false;
-			Player aux = (Player)listBox1.SelectedItem;
+			Player aux = (Player)listBox_LocalRoster.SelectedItem;
 			if (aux != null)
 			{
 				anotacion(3, aux);
-				// Le cometieron falta via tiro
-				//if (this.button_faltaL.Enabled == false)
+
+                desactivarPuntos();
+                desactivarRebotes();
+                desactivarFalta();
+                desactivarPerdida();
+
+                // Check if player has received a fault while shooting
 				if (procesoFalta)
 				{
 					// Cambia la interfaz del usuario
@@ -833,19 +926,16 @@ namespace TimeOut
 				else
 				{
 					desactivarTOLocal();
-					desactivarCambio();
-					desactivarPuntos();
-					desactivarRebotes();
-					desactivarFalta();
+
 					// Activa el boton de Comienzo
 					activarContinuacion();
 				}
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(local.Players);
 				nuevo.ShowDialog();
-				this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_DobleEns_L_Click(sender, e);
 			}
 		}
@@ -857,12 +947,17 @@ namespace TimeOut
 		{
 			// Detiene el reloj
 			timer1.Enabled = false;
-			Player aux = (Player)listBox2.SelectedItem;
+			Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 			if (aux != null)
 			{
 				anotacion(3, aux, false);
-				// Le cometieron falta via tiro
-				//if (this.button_faltaL.Enabled == false)
+
+                desactivarPuntos();
+                desactivarRebotes();
+                desactivarFalta();
+                desactivarPerdida();
+
+                // Check if player has received a fault while shooting
 				if (procesoFalta)
 				{
 					// Cambia la interfaz del usuario
@@ -875,19 +970,16 @@ namespace TimeOut
 				else
 				{
 					desactivarTOVisitante();
-					desactivarCambio();
-					desactivarPuntos();
-					desactivarRebotes();
-					desactivarFalta();
+
 					// Activa el boton de Comienzo
 					activarContinuacion();
 				}
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 				nuevo.ShowDialog();
-				this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_tripleEncestado_V_Click(sender, e);
 			}
 		}
@@ -899,6 +991,8 @@ namespace TimeOut
 		{
 			desactivarPuntos();
 			desactivarFalta();
+            desactivarPerdida();
+
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
@@ -909,20 +1003,20 @@ namespace TimeOut
 			}
 			else
 			{
-				Player aux = (Player)listBox1.SelectedItem;
+				Player aux = (Player)listBox_LocalRoster.SelectedItem;
 				if (aux != null)
 				{
 					fallo(2, aux);
-					// Se encienden el rebote Ofensivo
+
+					// Change UI state
 					activarRebotes(false);
-					// Desactiva tiempos muertos
-					desactivarTO();
+					desactivarTOVisitante();
 				}
 				else
 				{
-					SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+					SelectPlayer nuevo = new SelectPlayer(local.Players);
 					nuevo.ShowDialog();
-					this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+					this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 					btn_DobleErrado_L_Click(sender, e);
 				}
 			}
@@ -935,6 +1029,8 @@ namespace TimeOut
 		{
 			desactivarPuntos();
 			desactivarFalta();
+            desactivarPerdida();
+
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
@@ -945,20 +1041,20 @@ namespace TimeOut
 			}
 			else
 			{
-				Player aux = (Player)listBox2.SelectedItem;
+				Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 				if (aux != null)
 				{
 					fallo(2, aux);
-					// Se encienden el rebote Ofensivo
+
+                    // Change UI state
 					activarRebotes();
-					// Desactiva tiempos muertos
-					desactivarTO();
+					desactivarTOLocal();
 				}
 				else
 				{
-					SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+					SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 					nuevo.ShowDialog();
-					this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+					this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 					btn_dobleErrado_V_Click(sender, e);
 				}
 			}
@@ -971,6 +1067,8 @@ namespace TimeOut
 		{
 			desactivarPuntos();
 			desactivarFalta();
+            desactivarPerdida();
+
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
@@ -981,20 +1079,20 @@ namespace TimeOut
 			}
 			else
 			{
-				Player aux = (Player)listBox1.SelectedItem;
+				Player aux = (Player)listBox_LocalRoster.SelectedItem;
 				if (aux != null)
 				{
 					fallo(3, aux);
-					// Se encienden el rebote Ofensivo
+
+                    // Change UI state
 					activarRebotes(false);
-					// Desactiva tiempos muertos
-					desactivarTO();
+					desactivarTOVisitante();
 				}
 				else
 				{
-					SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+					SelectPlayer nuevo = new SelectPlayer(local.Players);
 					nuevo.ShowDialog();
-					this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+					this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 					btn_DobleErrado_L_Click(sender, e);
 				}
 			}
@@ -1007,6 +1105,8 @@ namespace TimeOut
 		{
 			desactivarPuntos();
 			desactivarFalta();
+            desactivarPerdida();
+
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
@@ -1017,20 +1117,20 @@ namespace TimeOut
 			}
 			else
 			{
-				Player aux = (Player)listBox2.SelectedItem;
+				Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 				if (aux != null)
 				{
 					fallo(3, aux);
-					// Se encienden el rebote Ofensivo
+
+                    // Change UI state
 					activarRebotes();
-					// Desactiva tiempos muertos
-					desactivarTO();
+					desactivarTOLocal();
 				}
 				else
 				{
-					SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+					SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 					nuevo.ShowDialog();
-					this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+					this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 					btn_dobleErrado_V_Click(sender, e);
 				}
 			}
@@ -1041,15 +1141,16 @@ namespace TimeOut
 		/// </summary>
 		private void btn_rebote_L_Click(object sender, EventArgs e)
 		{
-			Player aux = (Player)listBox1.SelectedItem;
+			Player aux = (Player)listBox_LocalRoster.SelectedItem;
 			if(aux != null)
 			{
 				// Registra el rebote
 				aux.RebotesOfensivos++;
-				registrarRebote(aux.NombreCompleto, true);
+				registrarRebote(aux.CompleteName, true);
 				// Cambial el entorno
 				desactivarRebotes();
 				activarFalta();
+                activarPerdida();
 				activarPuntos();
 				// Activa TODOS los tiempos muertos
 				activarTO();
@@ -1058,9 +1159,9 @@ namespace TimeOut
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(local.Players);
 				nuevo.ShowDialog();
-				this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_rebote_L_Click(sender, e);
 			}
 		}
@@ -1070,15 +1171,16 @@ namespace TimeOut
 		/// </summary>
 		private void btn_rebote_Ofensivo_V_Click(object sender, EventArgs e)
 		{
-			Player aux = (Player)listBox2.SelectedItem;
+			Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 			if (aux != null)
 			{
 				// Registra el rebote
 				aux.RebotesOfensivos++;
-				registrarRebote(aux.NombreCompleto, true);
+				registrarRebote(aux.CompleteName, true);
 				// Cambial el entorno
 				desactivarRebotes();
 				activarFalta();
+                activarPerdida();
 				activarPuntos();
 				// Activa TODOS los tiempos muertos
 				activarTO();
@@ -1087,9 +1189,9 @@ namespace TimeOut
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 				nuevo.ShowDialog();
-				this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_rebote_Ofensivo_V_Click(sender, e);
 			}
 		}
@@ -1099,15 +1201,16 @@ namespace TimeOut
 		/// </summary>
 		private void btn_rebote_Defensivo_L_Click(object sender, EventArgs e)
 		{
-			Player aux = (Player)listBox1.SelectedItem;
+			Player aux = (Player)listBox_LocalRoster.SelectedItem;
 			if (aux != null)
 			{
 				// Registra el rebote
 				aux.RebotesDefensivos++;
-				registrarRebote(aux.NombreCompleto);
+				registrarRebote(aux.CompleteName);
 				// Cambial el entorno
 				desactivarRebotes();
 				activarFalta();
+                activarPerdida();
 				activarPuntos();
 				// Activa TODOS los tiempos muertos
 				activarTO();
@@ -1116,9 +1219,9 @@ namespace TimeOut
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(local.Players);
 				nuevo.ShowDialog();
-				this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_rebote_Defensivo_L_Click(sender, e);
 			}
 		}
@@ -1128,15 +1231,16 @@ namespace TimeOut
 		/// </summary>
 		private void btn_rebote_Defensivo_V_Click(object sender, EventArgs e)
 		{
-			Player aux = (Player)listBox2.SelectedItem;
+			Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 			if (aux != null)
 			{
 				// Registra el rebote
 				aux.RebotesDefensivos++;
-				registrarRebote(aux.NombreCompleto);
+				registrarRebote(aux.CompleteName);
 				// Cambial el entorno
 				desactivarRebotes();
 				activarFalta();
+                activarPerdida();
 				activarPuntos();
 				// Activa TODOS los tiempos muertos
 				activarTO();
@@ -1145,9 +1249,9 @@ namespace TimeOut
 			}
 			else
 			{
-				SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 				nuevo.ShowDialog();
-				this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_rebote_Defensivo_V_Click(sender, e);
 			}
 		}
@@ -1158,7 +1262,7 @@ namespace TimeOut
 		private void btn_libreEncestado_L_Click(object sender, EventArgs e)
 		{
 			tirosLibresDisponibles--;
-			Player aux = (Player)listBox1.SelectedItem;
+			Player aux = (Player)listBox_LocalRoster.SelectedItem;
 			if (aux != null)
 			{
 				anotacion(1, aux);
@@ -1176,9 +1280,9 @@ namespace TimeOut
 			else
 			{
 				// Selecciona el jugador LOCAL que ENCESTO el tiro
-				SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(local.Players);
 				nuevo.ShowDialog();
-				this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_LocalRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_libreEncestado_L_Click(sender, e);
 			}
 		}
@@ -1189,7 +1293,7 @@ namespace TimeOut
 		private void btn_libreEncestado_V_Click(object sender, EventArgs e)
 		{
 			tirosLibresDisponibles--;
-			Player aux = (Player)listBox2.SelectedItem;
+			Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 			if (aux != null)
 			{
 				anotacion(1, aux, false);
@@ -1206,9 +1310,9 @@ namespace TimeOut
 			else
 			{
 				// Selecciona el jugador VISITANTE que ENCESTO el tiro
-				SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 				nuevo.ShowDialog();
-				this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_libreEncestado_V_Click(sender, e);
 			}
 		}
@@ -1219,7 +1323,7 @@ namespace TimeOut
 		private void btn_libreErrado_L_Click(object sender, EventArgs e)
 		{
 			tirosLibresDisponibles--;
-			Player aux = (Player)listBox1.SelectedItem;
+			Player aux = (Player)listBox_LocalRoster.SelectedItem;
 			if (aux != null)
 			{
 				fallo(1, aux);
@@ -1235,9 +1339,9 @@ namespace TimeOut
 			else
 			{
 				// Selecciona el jugador LOCAL que FALLO el tiro
-				SelectPlayer nuevo = new SelectPlayer(local.Jugadores);
-				nuevo.ShowDialog();
-				this.listBox1.SelectedItem = nuevo.JugadorSeleccionado;
+				SelectPlayer window = new SelectPlayer(local.Players);
+				window.ShowDialog();
+				this.listBox_LocalRoster.SelectedItem = window.JugadorSeleccionado;
 				btn_libreErrado_L_Click(sender, e);
 			}
 		}
@@ -1248,13 +1352,13 @@ namespace TimeOut
 		private void btn_libreErrado_V_Click(object sender, EventArgs e)
 		{
 			tirosLibresDisponibles--;
-			Player aux = (Player)listBox2.SelectedItem;
+			Player aux = (Player)listBox_VisitorRoster.SelectedItem;
 			if (aux != null)
 			{
 				fallo(1, aux);
 				if (tirosLibresDisponibles == 0)
 				{
-					desactivarLibreLocal();
+					desactivarLibreVisitante();
 					correrContinuacion();
 					procesoFalta = false;
 					// Se encienden los rebotes
@@ -1264,9 +1368,9 @@ namespace TimeOut
 			else
 			{
 				// Selecciona el jugador LOCAL que FALLO el tiro
-				SelectPlayer nuevo = new SelectPlayer(visitor.Jugadores);
+				SelectPlayer nuevo = new SelectPlayer(visitor.Players);
 				nuevo.ShowDialog();
-				this.listBox2.SelectedItem = nuevo.JugadorSeleccionado;
+				this.listBox_VisitorRoster.SelectedItem = nuevo.JugadorSeleccionado;
 				btn_libreErrado_V_Click(sender, e);
 			}
 		}
@@ -1288,5 +1392,27 @@ namespace TimeOut
 					e.Cancel = true;
 			}
 		}
+
+        private void button_perdidaL_Click(object sender, EventArgs e)
+        {
+            desactivarPuntos();
+            desactivarRebotes();
+            desactivarFalta();
+            desactivarPerdida();
+            // Activa el boton de Comienzo
+            activarContinuacion();
+            procesoBalonAfuera = true; // Activa el proceso Balon Afuera
+        }
+
+        private void button_perdidaV_Click(object sender, EventArgs e)
+        {
+            desactivarPuntos();
+            desactivarRebotes();
+            desactivarFalta();
+            desactivarPerdida();
+            // Activa el boton de Comienzo
+            activarContinuacion();
+            procesoBalonAfuera = true; // Activa el proceso Balon Afuera
+        }
     }
 }

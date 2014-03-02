@@ -45,6 +45,13 @@ namespace TimeOut
 			this.REDE_L.Text = partido.EstadisticasLocal.RebotesDefensivos.ToString();
 			this.REOF_L.Text = partido.EstadisticasLocal.RebotesOfensivos.ToString();
 			this.FALTAS_L.Text = partido.EstadisticasLocal.Faltas.ToString();
+
+            int TotalScore_Local = partido.EstadisticasLocal.SimplesEncestados;
+            TotalScore_Local    += partido.EstadisticasLocal.DoblesEncestados  * 2;
+            TotalScore_Local    += partido.EstadisticasLocal.TriplesEncestados * 3;
+
+            this.label_TotalScoreL.Text = TotalScore_Local.ToString();
+
 			// Muestra todas las estadísticas del equipo VISITANTE
 			this.DOEN_V.Text = partido.EstadisticasVisitante.DoblesEncestados.ToString();
 			this.DOFA_V.Text = partido.EstadisticasVisitante.DoblesFallidos.ToString();
@@ -55,6 +62,12 @@ namespace TimeOut
 			this.REDE_V.Text = partido.EstadisticasVisitante.RebotesDefensivos.ToString();
 			this.REOF_V.Text = partido.EstadisticasVisitante.RebotesOfensivos.ToString();
 			this.FALTAS_V.Text = partido.EstadisticasVisitante.Faltas.ToString();
+
+            int TotalScore_Visitor = partido.EstadisticasVisitante.SimplesEncestados;
+            TotalScore_Visitor    += partido.EstadisticasVisitante.DoblesEncestados  * 2;
+            TotalScore_Visitor    += partido.EstadisticasVisitante.TriplesEncestados * 3;
+
+            this.label_TotalScoreV.Text = TotalScore_Visitor.ToString();
 		}
 	}
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTeam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Team>
     <Titulo>Azul</Titulo>
@@ -11,7 +11,7 @@
         <Nombre>Lionel </Nombre>
         <Apellido>Gutierrez</Apellido>
         <Altura>2.01</Altura>
-        <Nacimiento>01/01/0001</Nacimiento>
+        <Nacimiento>51/51/2001</Nacimiento>
         <Posicion>C</Posicion>
       </Player>
       <Player>

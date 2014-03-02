@@ -11,7 +11,7 @@ namespace TimeOut
 		int minutos;
 		int segundos;
 		int milisegundos;
-		// Se define una constante con los minutos limites
+		// Se define una constante con los minutos a jugar
 		const int minutoInicial = 1;
 
 		public int Minutos

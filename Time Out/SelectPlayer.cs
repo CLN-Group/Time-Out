@@ -28,10 +28,10 @@ namespace TimeOut
 			// Agrega los jugadores titulares y selecciona el primero
 			foreach (Player p in lista)
 			{
-				if (p.Titular)
+				if (p.Starter)
 					this.listBox1.Items.Add(p);
 			}
-			this.listBox1.DisplayMember = "NombreCompleto";
+			this.listBox1.DisplayMember = "CompleteName";
 			this.listBox1.SelectedIndex = 0;
 		}
 

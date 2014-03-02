@@ -8,38 +8,32 @@ namespace TimeOut
 {
 	public class Registro
 	{
-		string tiempo;
-		string evento;
-		string jugador;
-
 		public string Tiempo
 		{
-			get{return tiempo;}
-			set {tiempo=value;}
+			get;
+			set;
 		}
 		public string Evento
 		{
-			get { return evento; }
-			set { evento = value; }
+			get;
+            set;
 		}
 		public string Jugador
 		{
-			get { return jugador; }
-			set { jugador = value; }
+            get;
+            set;
 		}
 
 		public string renglon
 		{
-			get{return tiempo+", "+evento+", "+jugador;}
+			get { return Tiempo + ", " + Evento + ", " + Jugador; }
 		}
 
 		public Registro(string nroCuarto, string minutos, string evento, string jugador)
 		{
-			this.tiempo=nroCuarto+"-"+minutos;
-			this.evento=evento;
-			this.jugador=jugador;
+            this.Tiempo  = nroCuarto + "-" + minutos;
+            this.Evento  = evento;
+            this.Jugador = jugador;
 		}
-
-		
 	}
 }

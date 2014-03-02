@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfMatch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Match>
+    <Fecha>2014-03-01T20:53:54.5079-03:00</Fecha>
+    <EquipoLocal>Celtics</EquipoLocal>
+    <EquipoVisitante>Bulls</EquipoVisitante>
+    <EstadisticasLocal>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>0</SimplesEncestados>
+      <SimplesFallidos>0</SimplesFallidos>
+      <DoblesEncestados>5</DoblesEncestados>
+      <DoblesFallidos>0</DoblesFallidos>
+      <TriplesEncestados>0</TriplesEncestados>
+      <TriplesFallidos>1</TriplesFallidos>
+      <Puntos>5</Puntos>
+      <RebotesOfensivos>5</RebotesOfensivos>
+      <RebotesDefensivos>5</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>3</Faltas>
+    </EstadisticasLocal>
+    <EstadisticasVisitante>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>4</SimplesEncestados>
+      <SimplesFallidos>0</SimplesFallidos>
+      <DoblesEncestados>3</DoblesEncestados>
+      <DoblesFallidos>0</DoblesFallidos>
+      <TriplesEncestados>0</TriplesEncestados>
+      <TriplesFallidos>0</TriplesFallidos>
+      <Puntos>3</Puntos>
+      <RebotesOfensivos>0</RebotesOfensivos>
+      <RebotesDefensivos>2</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>0</Faltas>
+    </EstadisticasVisitante>
+    <JugadoresLocales>
+      <string>Anthony, Joel</string>
+      <string>Bass, Brand</string>
+      <string>Bayless, Jerryd</string>
+      <string>Bogans, Keith</string>
+      <string>Bradley, Avery</string>
+      <string>Johnson, Chris</string>
+    </JugadoresLocales>
+    <JugadoresVisitantes>
+      <string>Boozer, Carlos</string>
+      <string>Butler, Jimmy</string>
+      <string>Dunleavy, Mike</string>
+      <string>Gibson, Taj</string>
+      <string>Hinrich, Kirk</string>
+      <string>Noah, Joakim</string>
+    </JugadoresVisitantes>
+  </Match>
+</ArrayOfMatch>
