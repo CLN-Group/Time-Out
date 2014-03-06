@@ -126,4 +126,29 @@
   <metadata name="lineShape1.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 300</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8A////AP///wD8+/oD5M24Rfj08Az9/PwA////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A+fXyCrRuH+fGiTTe2raNeP38/AD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////APn18gq6dyTl0ZQn/9OXL/r26tYw9/HsEefTwD78+/oB////AP//
+        /wD///8A////AP///wD///8A////AP///wD8+/oBw4lCxdGTJv/UmC/69uvXL+PMtke/eyT8z5pVyfjx
+        6Bn8+/oB////AP///wD///8A////AP///wD///8A////ANCkdI3PkCT/1Jgt/e/bt1fQp4B+0pc5/+Cr
+        Tf/15stJz6Z/ftewg4vz6uAc////AP///wD///8A////AP///wDt3tAtyYkl89OXLP/bq1bNv4VJutmi
+        Qf/frVH18uXUMrh0Kujmt2H98NarhP///wD///8A////APz7+gPfxKpT8+riGtq0hYLSlSr91psy/c2O
+        Lf3bpEL/2qRJ87h3NNTVnEX96Llj/Pjq0Er///8A////AP///wDu39IqsmcK/L55F/jChTjQwHwh8tSZ
+        MP/Ynzn/26RB/9ymR//eqU3/5LNZ/e3Mj6/9/PoD////AP///wD///8A3sGmV711Dv3NjBv/zpAh/9GT
+        J//UmC//2J44/9qjQP/eqEj/3adL/eC2c7379/EP////AP///wD///8A////APDj2CTZrWSj05s62s2O
+        IPzRkyf91Jkv/9eeN//aoz//3ahH/9ymSf3Pkz745sieff///wD///8A////AP///wD///8A+PTwDM2g
+        doe0bBjwyIYf/dSYLv/XnTb/2qI+/92nRf3grE/447FV/e/UopD///8A////AP///wD///8A+fXyCrt9
+        Qrq8dA/9zY0e/9CSJf/Tly3/15w1/9mhPf/cpkT94bl4svbnzUf58eEq////AP///wD///8A/fz8AM2h
+        eIW6cAn9y4kW/82OHvrarWWswHwc/NabM//bqVTa2KBA+t+qTPz369c3////AP///wD///8A////APLn
+        3h+wZQ/wx4MN/8qIFf3oyphx4ciwTcF8HP/WmzL/7dOmb82aXLXfqkr/7tOihf///wD///8A////AP//
+        /wDZt5hkuXAD/ceDDP/PlCzg+/fxDNCogH3JiSL91Zox//TnzjrFj1it3adH/+zNlZb///8A////AP//
+        /wD///8A+fXyCujPpVfny5pn7dm1Tf///wD07OIZ6MqWeejKkoT8+fQK7NvHPOrJj5j05MZQ////AP//
+        /wD///8A//8AAPP/AADx/wAA8Z8AAPGbAAD4EQAA+AMAAOADAADgBwAA4AcAAPADAADgDwAAwA8AAMZH
+        AADGRwAA/28AAA==
+</value>
+  </data>
 </root>

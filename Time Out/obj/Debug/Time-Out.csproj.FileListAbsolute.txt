@@ -67,3 +67,7 @@ C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug
 C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug\TimeOut.SelectPlayer.resources
 C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug\TimeOut.ShowEvents.resources
 C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug\TimeOut.ShowStatistics.resources
+C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\bin\Debug\Time-Out.exe.manifest
+C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\bin\Debug\Time-Out.application
+C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug\Time-Out.exe.manifest
+C:\Users\GAMES\Documents\Visual Studio 2012\Projects\Time-Out\Time Out\obj\Debug\Time-Out.application

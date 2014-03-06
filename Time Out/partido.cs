@@ -155,31 +155,31 @@ namespace TimeOut
 			{
 				partidoJugado.JugadoresLocales.Add(p.CompleteName);
 				// Agrega las estadísticas sumandolas a las actuales
-				partidoJugado.EstadisticasLocal.Asistencias += p.AsistenciasLogradas;
+				partidoJugado.EstadisticasLocal.Asistencias       += p.AsistenciasLogradas;
 				partidoJugado.EstadisticasLocal.SimplesEncestados += p.TirosLibresAnotados;
-				partidoJugado.EstadisticasLocal.SimplesFallidos += p.TirosLibresFallados;
-				partidoJugado.EstadisticasLocal.DoblesEncestados += p.PuntosDoblesAnotados;
-				partidoJugado.EstadisticasLocal.DoblesFallidos += p.PuntosTriplesAnotados;
+				partidoJugado.EstadisticasLocal.SimplesFallidos   += p.TirosLibresFallados;
+				partidoJugado.EstadisticasLocal.DoblesEncestados  += p.PuntosDoblesAnotados;
+				partidoJugado.EstadisticasLocal.DoblesFallidos    += p.PuntosDoblesFallados;
 				partidoJugado.EstadisticasLocal.TriplesEncestados += p.PuntosTriplesAnotados;
-				partidoJugado.EstadisticasLocal.TriplesFallidos += p.PuntosTriplesFallados;
+				partidoJugado.EstadisticasLocal.TriplesFallidos   += p.PuntosTriplesFallados;
 				partidoJugado.EstadisticasLocal.RebotesDefensivos += p.RebotesDefensivos;
-				partidoJugado.EstadisticasLocal.RebotesOfensivos += p.RebotesOfensivos;
-				partidoJugado.EstadisticasLocal.Faltas += p.FaltasCometidas;
+				partidoJugado.EstadisticasLocal.RebotesOfensivos  += p.RebotesOfensivos;
+				partidoJugado.EstadisticasLocal.Faltas            += p.FaltasCometidas;
 			}
 			foreach(Player p in visitor.Players)
 			{
 				partidoJugado.JugadoresVisitantes.Add(p.CompleteName);
 				// Agrega las estadísticas sumandolas a las actuales
-				partidoJugado.EstadisticasVisitante.Asistencias += p.AsistenciasLogradas;
+				partidoJugado.EstadisticasVisitante.Asistencias       += p.AsistenciasLogradas;
 				partidoJugado.EstadisticasVisitante.SimplesEncestados += p.TirosLibresAnotados;
-				partidoJugado.EstadisticasVisitante.SimplesFallidos += p.TirosLibresFallados;
-				partidoJugado.EstadisticasVisitante.DoblesEncestados += p.PuntosDoblesAnotados;
-				partidoJugado.EstadisticasVisitante.DoblesFallidos += p.PuntosTriplesAnotados;
+				partidoJugado.EstadisticasVisitante.SimplesFallidos   += p.TirosLibresFallados;
+				partidoJugado.EstadisticasVisitante.DoblesEncestados  += p.PuntosDoblesAnotados;
+				partidoJugado.EstadisticasVisitante.DoblesFallidos    += p.PuntosDoblesFallados;
 				partidoJugado.EstadisticasVisitante.TriplesEncestados += p.PuntosTriplesAnotados;
-				partidoJugado.EstadisticasVisitante.TriplesFallidos += p.PuntosTriplesFallados;
+				partidoJugado.EstadisticasVisitante.TriplesFallidos   += p.PuntosTriplesFallados;
 				partidoJugado.EstadisticasVisitante.RebotesDefensivos += p.RebotesDefensivos;
-				partidoJugado.EstadisticasVisitante.RebotesOfensivos += p.RebotesOfensivos;
-				partidoJugado.EstadisticasVisitante.Faltas += p.FaltasCometidas;
+				partidoJugado.EstadisticasVisitante.RebotesOfensivos  += p.RebotesOfensivos;
+				partidoJugado.EstadisticasVisitante.Faltas            += p.FaltasCometidas;
 			}
 			guardarPartidoEnArchivo();
 		}
@@ -257,6 +257,7 @@ namespace TimeOut
 			desactivarFalta();
             desactivarPerdida();
 			desactivarRebotes();
+
 			if (this.lblCuarto.Text[0] == '1')
 				this.lblCuarto.Text = "2do Cuarto";
 			else if (this.lblCuarto.Text[0] == '2')
@@ -270,12 +271,11 @@ namespace TimeOut
         private void timer1_Tick(object sender, EventArgs e)
 		{
 			count.decCounter();
+
+            this.label_timer.Text = count.getCounter;
+
 			if (count.getCounter == "00:00:00")
-			{
-				//count.resetCounter();
 				finalizarCuarto();
-			}	
-			this.label_timer.Text = count.getCounter;
 		}
 
 		
@@ -709,6 +709,7 @@ namespace TimeOut
             desactivarFalta();
             desactivarPerdida();
 			desactivarTOLocal();
+            activarTOVisitante();
 
 			if (listBox_LocalRoster.SelectedItem != null)
 			{				
@@ -728,7 +729,7 @@ namespace TimeOut
 					MessageBoxIcon.Question);
 				if (userResponce == DialogResult.Yes)
 				{
-					desactivarTO();
+					//desactivarTO();
 					procesoFalta = true; // Activa el proceso falta
 					desactivarDoblesLocal();
 					desactivarTriplesLocal();
@@ -761,6 +762,7 @@ namespace TimeOut
             desactivarFalta();
             desactivarPerdida();
 			desactivarTOVisitante();
+            activarTOLocal();
 
 			if (listBox_VisitorRoster.SelectedItem != null)
 			{
@@ -780,7 +782,7 @@ namespace TimeOut
 					MessageBoxIcon.Question);
 				if (userResponce == DialogResult.Yes)
 				{
-					desactivarTO();
+					//desactivarTO();
 					procesoFalta = true; // Activa el proceso falta
 					desactivarDoblesVisitante();
 					desactivarTriplesVisitante();
@@ -990,14 +992,15 @@ namespace TimeOut
 		private void btn_DobleErrado_L_Click(object sender, EventArgs e)
 		{
 			desactivarPuntos();
-			desactivarFalta();
-            desactivarPerdida();
 
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
 				activarTOLocal();
 				activarLibreLocal();
+                desactivarFalta();
+                desactivarPerdida();
+
 				// Tirara 2 tiros libres
 				tirosLibresDisponibles = 2; 
 			}
@@ -1028,14 +1031,15 @@ namespace TimeOut
 		private void btn_dobleErrado_V_Click(object sender, EventArgs e)
 		{
 			desactivarPuntos();
-			desactivarFalta();
-            desactivarPerdida();
 
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
 				activarTOVisitante();
 				activarLibreVisitante();
+                desactivarFalta();
+                desactivarPerdida();
+
 				// Tirara 2 tiros libres
 				tirosLibresDisponibles = 2; 
 			}
@@ -1066,14 +1070,15 @@ namespace TimeOut
 		private void btn_tripleErrado_L_Click(object sender, EventArgs e)
 		{
 			desactivarPuntos();
-			desactivarFalta();
-            desactivarPerdida();
 
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
 				activarTOLocal();
 				activarLibreLocal();
+                desactivarFalta();
+                desactivarPerdida();
+
 				// Tirara 3 tiros libres
 				tirosLibresDisponibles = 3; 
 			}
@@ -1104,14 +1109,15 @@ namespace TimeOut
 		private void btn_tripleErrado_V_Click(object sender, EventArgs e)
 		{
 			desactivarPuntos();
-			desactivarFalta();
-            desactivarPerdida();
 
 			if (procesoFalta)
 			{
 				// Cambia la interfaz del usuario
 				activarTOVisitante();
 				activarLibreVisitante();
+                desactivarFalta();
+                desactivarPerdida();
+
 				// Tirara 3 tiros libres
 				tirosLibresDisponibles = 3; 
 			}

@@ -2,6 +2,13 @@
 [Bb]in/
 [Oo]bj/
 
+# Design files
+*.dm2
+*.~m2
+
+# Exported binaries (called "Publications" in VS)
+Publications
+
 # mstest test results
 TestResults
 

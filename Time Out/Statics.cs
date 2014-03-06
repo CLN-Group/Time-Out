@@ -3,103 +3,94 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace TimeOut
 {
     public class Estadisticas
     {
-        int asistencias;
-		int simplesEncestados;
-		int simplesFallidos;
-        int doblesEncestados;
-		int doblesFallidos;
-		int triplesEncestados;
-		int triplesFallidos;
-        int rebotesOfensivos;
-        int rebotesDefensivos;
-        int robos;
-        int faltas;
-
-        #region Propiedades
         public int Asistencias
         {
-            get { return asistencias; }
-            set { asistencias = value; }
+            get;
+            set;
         }
 		public int SimplesEncestados
 		{
-			get { return simplesEncestados; }
-			set { simplesEncestados = value; }
+            get;
+            set;
 		}
 		public int SimplesFallidos
 		{
-			get { return simplesFallidos; }
-			set { simplesFallidos = value; }
+            get;
+            set;
 		}
 		public int DoblesEncestados
 		{
-			get { return doblesEncestados; }
-			set { doblesEncestados = value; }
+            get;
+            set;
 		}
 		public int DoblesFallidos
 		{
-			get { return doblesFallidos; }
-			set { doblesFallidos = value; }
+            get;
+            set;
 		}
 		public int TriplesEncestados
 		{
-			get { return triplesEncestados; }
-			set { triplesEncestados = value; }
+            get;
+            set;
 		}
 		public int TriplesFallidos
 		{
-			get { return triplesFallidos; }
-			set { triplesFallidos = value; }
+            get;
+            set;
 		}
-        public int Puntos
-        {
-            get { return doblesEncestados+triplesEncestados; }
-			set { } // Necesario para guardar al archivo
-        }
         public int RebotesOfensivos
         {
-            get { return rebotesOfensivos; }
-            set { rebotesOfensivos = value; }
+            get;
+            set;
         }
         public int RebotesDefensivos
         {
-            get { return rebotesDefensivos; }
-            set { rebotesDefensivos = value; }
-        }
-        public int Rebotes
-        {
-            get { return rebotesDefensivos + rebotesOfensivos; }
+            get;
+            set;
         }
         public int Robos
         {
-            get { return robos; }
-            set { robos = value; }
+            get;
+            set;
         }
         public int Faltas
         {
-            get { return faltas; }
-            set { faltas = value; }
+            get;
+            set;
         }
-        #endregion
+        /// <summary>
+        /// Return the final score of the team.
+        /// </summary>
+        [XmlIgnore]
+        public int Puntos
+        {
+            get { return SimplesEncestados + DoblesEncestados*2 + TriplesEncestados*3; }
+        }
+        [XmlIgnore]
+        public int Rebotes
+        {
+            get { return RebotesDefensivos + RebotesOfensivos; }
+        }
 
         public Estadisticas()
         {
-            asistencias = 0;
-			simplesEncestados = 0;
-			simplesFallidos = 0;
-			doblesEncestados = 0;
-			doblesFallidos = 0;
-			triplesEncestados = 0;
-			triplesFallidos = 0;
-            rebotesOfensivos = 0;
-            rebotesDefensivos = 0;
-            robos = 0;
-            faltas = 0;
+            Asistencias       = 0;
+			SimplesEncestados = 0;
+			SimplesFallidos   = 0;
+			DoblesEncestados  = 0;
+			DoblesFallidos    = 0;
+			TriplesEncestados = 0;
+			TriplesFallidos   = 0;
+            RebotesOfensivos  = 0;
+            RebotesDefensivos = 0;
+            Robos             = 0;
+            Faltas            = 0;
         }
     }
 }

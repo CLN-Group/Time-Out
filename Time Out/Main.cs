@@ -16,11 +16,11 @@ namespace TimeOut
 {
 	public partial class Main : Form
 	{
-		static string folder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\data\");
-		public static string archivoEquipos = folder + "teams.xml";
-		//string archivoJugadores = folder + "players.xml";
+        static string folder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\data\");
+        //static string folder = @"C:\timeout\";
+		public static string archivoEquipos  = folder + "teams.xml";
 		public static string archivoPartidos = folder + "matchs.xml";
-        Team local = new Team();
+        Team local   = new Team();
         Team visitor = new Team();
 
 		public Main()
@@ -143,13 +143,14 @@ namespace TimeOut
 			List<Team> listaEquipos = null;
 			if (File.Exists(archivoEquipos))
 			{
-				StreamReader flujo = new StreamReader(archivoEquipos);
+				StreamReader flujo   = new StreamReader(archivoEquipos);
 				XmlSerializer serial = new XmlSerializer(typeof(List<Team>));
-				listaEquipos = (List<Team>)serial.Deserialize(flujo);
+				listaEquipos         = (List<Team>)serial.Deserialize(flujo);
 				flujo.Close();
 			}
 			return listaEquipos;
 		}
+
 		/// <summary>
 		/// Carga todos los partidos guardados en un archivo XML en una lista generica.
 		/// </summary>
@@ -159,20 +160,22 @@ namespace TimeOut
 			List<Match> listaPartidos = null;
 			if (File.Exists(archivoPartidos))
 			{
-				StreamReader flujo = new StreamReader(archivoPartidos);
+				StreamReader flujo   = new StreamReader(archivoPartidos);
 				XmlSerializer serial = new XmlSerializer(typeof(List<Match>));
-				listaPartidos = (List<Match>)serial.Deserialize(flujo);
+				listaPartidos        = (List<Match>)serial.Deserialize(flujo);
 				flujo.Close();
 			}
 			return listaPartidos;
 		}
+
 		/// <summary>
 		/// Agrega todos los nombres de los equipos guardados en la lista generica titulos.
 		/// </summary>
 		public static List<string> CargarTitulosEquipos()
 		{
 			List<string> titulos = new List<string>();
-			List<Team> equipos = CargarEquipos();
+			List<Team> equipos   = CargarEquipos();
+
 			if (equipos != null)
 			{	
 				foreach (Team e in equipos)
@@ -180,6 +183,7 @@ namespace TimeOut
 					titulos.Add(e.Name);
 				}
 			}
+
 			return titulos;
 		}
 		
@@ -190,16 +194,18 @@ namespace TimeOut
 		Match loadMatchFromFile()
 		{
 			Match ultimoPartido = null;
-			List<Match> lista = CargarPartidos();
+			List<Match> lista   = CargarPartidos();
+
 			if (lista != null)
 				ultimoPartido = lista[ lista.Count-1 ];
+
 			return ultimoPartido;
 		}
 
 
-		/**********************************/
-		/* METODOS DE BOTONES PRINCIPALES */
-		/**********************************/
+		// ********************************** //
+		// * METODOS DE BOTONES PRINCIPALES * //
+		// ********************************** //
 
 		private void button_InitialTeam_Click(object sender, EventArgs e)
 		{

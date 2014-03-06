@@ -25,6 +25,7 @@ namespace TimeOut
 			get;
 			set;
 		}
+        [XmlIgnore]
 		public string CompleteName {
             get { return this.Lastname + ", " + this.Name; }
 		}
@@ -67,7 +68,8 @@ namespace TimeOut
 			set;
 		}
 		/// <summary>
-		/// It it used on the game
+		/// It it used on the game to check 
+        /// if player will start match playing
 		/// </summary>
 		[XmlIgnore]
 		public bool Starter {
@@ -162,6 +164,27 @@ namespace TimeOut
 			set;
 		}
 		#endregion
+
+
+        public Player()
+        {
+            Id        = "";
+            Birthdate = new DateTime();
+            Name      = "";
+            Lastname  = "";
+            Height    = 1;
+            Position  = "N";
+        }
+
+        public Player(string Nombre, string Apellido, DateTime Nacimiento, float Altura, string PosicionPreferida = "N", string id = "")
+        {
+            this.Id        = id;
+            this.Birthdate = Nacimiento;
+            this.Name      = Nombre;
+            this.Lastname  = Apellido;
+            this.Height    = Altura;
+            this.Position  = PosicionPreferida;
+        }
 		
 
 
@@ -175,6 +198,8 @@ namespace TimeOut
 			Regex rx = new Regex(@"\d");
 			return rx.IsMatch(str);
 		}
+
+
 		/// <summary>
 		/// Verifica si el valor del caracter pasado por parámetro es válido.
 		/// </summary>
@@ -189,6 +214,8 @@ namespace TimeOut
 			bool valid = (Array.IndexOf(validPositions, posicion) > -1) ? true : false;
 			return valid;
 		}
+
+
 		/// <summary>
 		/// Analísa los valores de todas las variables que pueden ser atributos del Jugador
 		/// </summary>
@@ -201,7 +228,7 @@ namespace TimeOut
 		{
 			bool res = true;
 
-			if (nombre == "" || apellido == "")
+			if (String.IsNullOrWhiteSpace(nombre) || String.IsNullOrWhiteSpace(apellido))
 				res = false;
 			if (strConNumero(nombre) || strConNumero(apellido))
 				res = false;
@@ -216,6 +243,8 @@ namespace TimeOut
                 
 			return res;
 		}
+
+
 		/// <summary>
 		/// Procesa una cadena con el nombre correspondiente a una posición,
 		/// y retorna su correspondiente abreviatura.
@@ -225,7 +254,8 @@ namespace TimeOut
 		static public string getPosicion(string posicionCompleta)
 		{
 			string posicionCorta = "N";
-			string pos = posicionCompleta.ToLower();
+			string pos           = posicionCompleta.ToLower();
+
 			if (pos == "pivot")
 				posicionCorta = "C";
 			if (pos == "ala-pivot")
@@ -236,28 +266,8 @@ namespace TimeOut
 				posicionCorta = "GF";
 			if (pos == "base")
 				posicionCorta = "G";
+
 			return posicionCorta;
-		}
-
-
-		public Player()
-		{
-            Id        = "";
-			Birthdate = new DateTime();
-			Name      = "";
-			Lastname  = "";
-			Height    = 1;
-			Position  = "N";
-		}
-
-		public Player(string Nombre, string Apellido, DateTime Nacimiento, float Altura, string PosicionPreferida = "N", string id = "")
-		{
-            this.Id        = id;
-			this.Birthdate = Nacimiento;
-			this.Name	   = Nombre;
-			this.Lastname  = Apellido;
-			this.Height    = Altura;
-			this.Position  = PosicionPreferida;
 		}
 	}
 }

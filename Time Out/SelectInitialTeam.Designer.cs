@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectInitialTeam));
             this.title = new System.Windows.Forms.Label();
             this.groupBox_available = new System.Windows.Forms.GroupBox();
             this.listBox_availablePlayers = new System.Windows.Forms.ListBox();
@@ -161,6 +162,7 @@
             this.Controls.Add(this.groupBox_available);
             this.Controls.Add(this.title);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "SelectInitialTeam";
             this.Text = "Equipo Inicial";

@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectTeams));
             this.panel1 = new System.Windows.Forms.Panel();
             this.interactiveLabelL = new System.Windows.Forms.Label();
             this.button_acceptSelectionL = new System.Windows.Forms.Button();
@@ -89,10 +90,11 @@
             // 
             // pictureBox_logoLocal
             // 
-            this.pictureBox_logoLocal.Image = global::TimeOut.Properties.Resources.no_team;
+            this.pictureBox_logoLocal.Image = global::TimeOut.Properties.Resources.TEAM_A;
             this.pictureBox_logoLocal.Location = new System.Drawing.Point(40, 50);
             this.pictureBox_logoLocal.Name = "pictureBox_logoLocal";
-            this.pictureBox_logoLocal.Size = new System.Drawing.Size(80, 80);
+            this.pictureBox_logoLocal.Size = new System.Drawing.Size(109, 80);
+            this.pictureBox_logoLocal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_logoLocal.TabIndex = 2;
             this.pictureBox_logoLocal.TabStop = false;
             // 
@@ -158,10 +160,11 @@
             // 
             // pictureBox_logoVisitor
             // 
-            this.pictureBox_logoVisitor.Image = global::TimeOut.Properties.Resources.no_team;
+            this.pictureBox_logoVisitor.Image = global::TimeOut.Properties.Resources.TEAM_B;
             this.pictureBox_logoVisitor.Location = new System.Drawing.Point(44, 50);
             this.pictureBox_logoVisitor.Name = "pictureBox_logoVisitor";
-            this.pictureBox_logoVisitor.Size = new System.Drawing.Size(80, 80);
+            this.pictureBox_logoVisitor.Size = new System.Drawing.Size(109, 80);
+            this.pictureBox_logoVisitor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_logoVisitor.TabIndex = 2;
             this.pictureBox_logoVisitor.TabStop = false;
             // 
@@ -230,6 +233,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "SelectTeams";
             this.Text = "Cargar Equipos y Jugadores";

@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowStatistics));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -114,9 +115,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(14, 247);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(168, 17);
+            this.label5.Size = new System.Drawing.Size(160, 17);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Tiros libres Encesatados:";
+            this.label5.Text = "Tiros libres Encestados:";
             // 
             // label6
             // 
@@ -489,6 +490,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.shapeContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "ShowStatistics";
             this.Text = "Estadisticas de un partido";
             this.ResumeLayout(false);

@@ -28,59 +28,61 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.listBox1 = new System.Windows.Forms.ListBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
-			this.SuspendLayout();
-			// 
-			// listBox1
-			// 
-			this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.ItemHeight = 16;
-			this.listBox1.Location = new System.Drawing.Point(25, 38);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(160, 100);
-			this.listBox1.TabIndex = 11;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(12, 13);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(187, 22);
-			this.label1.TabIndex = 12;
-			this.label1.Text = "Seleccione el jugador:";
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(25, 144);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(160, 33);
-			this.button1.TabIndex = 13;
-			this.button1.Text = "ACEPTAR";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// SelectPlayer
-			// 
-			this.AcceptButton = this.button1;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(207, 186);
-			this.Controls.Add(this.button1);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.listBox1);
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "SelectPlayer";
-			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
-			this.Text = "Seleccción Jugador";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectPlayer_FormClosing);
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectPlayer));
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // listBox1
+            // 
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(25, 38);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(160, 100);
+            this.listBox1.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(187, 22);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Seleccione el jugador:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(25, 144);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(160, 33);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "ACEPTAR";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // SelectPlayer
+            // 
+            this.AcceptButton = this.button1;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(207, 186);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.listBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "SelectPlayer";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.Text = "Seleccción Jugador";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectPlayer_FormClosing);
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
