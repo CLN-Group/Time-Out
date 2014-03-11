@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos atributos para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("Time-Out")]
-[assembly: AssemblyDescription("Application to record events of basketball games")]
+[assembly: AssemblyDescription("Application to report events of basketball games")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Time-Out")]

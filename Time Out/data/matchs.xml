@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfMatch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Match>
+    <Fecha>2014-03-04T20:16:33.9436-03:00</Fecha>
+    <EquipoLocal>Seattle</EquipoLocal>
+    <EquipoVisitante>Denver</EquipoVisitante>
+    <EstadisticasLocal>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>0</SimplesEncestados>
+      <SimplesFallidos>0</SimplesFallidos>
+      <DoblesEncestados>0</DoblesEncestados>
+      <DoblesFallidos>0</DoblesFallidos>
+      <TriplesEncestados>3</TriplesEncestados>
+      <TriplesFallidos>1</TriplesFallidos>
+      <RebotesOfensivos>1</RebotesOfensivos>
+      <RebotesDefensivos>0</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>2</Faltas>
+    </EstadisticasLocal>
+    <EstadisticasVisitante>
+      <Asistencias>0</Asistencias>
+      <SimplesEncestados>3</SimplesEncestados>
+      <SimplesFallidos>0</SimplesFallidos>
+      <DoblesEncestados>2</DoblesEncestados>
+      <DoblesFallidos>1</DoblesFallidos>
+      <TriplesEncestados>1</TriplesEncestados>
+      <TriplesFallidos>0</TriplesFallidos>
+      <RebotesOfensivos>1</RebotesOfensivos>
+      <RebotesDefensivos>0</RebotesDefensivos>
+      <Robos>0</Robos>
+      <Faltas>0</Faltas>
+    </EstadisticasVisitante>
+    <JugadoresLocales>
+      <string>Watson, Earl</string>
+      <string>Durant, Kevin</string>
+      <string>Petro, Johan</string>
+      <string>Elson, Johan</string>
+      <string>Green, Jeff</string>
+      <string>Collison, Nick</string>
+    </JugadoresLocales>
+    <JugadoresVisitantes>
+      <string>Carter, Anthony</string>
+      <string>Iverson, Allen</string>
+      <string>Camby, Marcus</string>
+      <string>Anthony, Carmelo</string>
+      <string>Martin, Kenyon</string>
+    </JugadoresVisitantes>
+  </Match>
+</ArrayOfMatch>

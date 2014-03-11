@@ -8,61 +8,52 @@ namespace TimeOut
 {
     public class Match
     {
-        DateTime fecha;
-        string equipoLocal;
-        string equipoVisitante;
-        Estadisticas stLocal;
-        Estadisticas stVisitante;
-        List<string> jugadoresLocales;
-        List<string> jugadoresVisitantes;
-
-        #region Propiedades
         public DateTime Fecha
         {
-            get { return fecha; }
-            set { fecha = value; }
+            get;
+            set;
         }
         public string EquipoLocal
         {
-            get { return equipoLocal; }
-            set { equipoLocal = value; }
+            get;
+            set;
         }
         public string EquipoVisitante
         {
-            get { return equipoVisitante; }
-            set { equipoVisitante = value; }
+            get;
+            set;
         }
         public Estadisticas EstadisticasLocal
         {
-            get { return stLocal; }
-            set { stLocal = value; }
+            get;
+            set;
         }
 		public Estadisticas EstadisticasVisitante
         {
-            get { return stVisitante; }
-            set { stVisitante = value; }
+            get;
+            set;
         }
         public List<string> JugadoresLocales
         {
-            get { return jugadoresLocales; }
-            set { jugadoresLocales = value; }
+            get;
+            set;
         }
         public List<string> JugadoresVisitantes
         {
-            get { return jugadoresVisitantes; }
-            set { jugadoresVisitantes = value; }
+            get;
+            set;
         }
-        #endregion
+
 
         public Match()
         {
-            fecha = new DateTime();
-            equipoLocal = "";
-            equipoVisitante = "";
-            stLocal = new Estadisticas();
-            stVisitante = new Estadisticas();
-            jugadoresLocales = new List<string>();
-            jugadoresVisitantes = new List<string>();
+            Fecha                 = new DateTime();
+            EquipoLocal           = "";
+            EquipoVisitante       = "";
+            EstadisticasLocal     = new Estadisticas();
+            EstadisticasVisitante = new Estadisticas();
+            JugadoresLocales      = new List<string>();
+            JugadoresVisitantes   = new List<string>();
         }
     }
 }

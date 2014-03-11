@@ -109,21 +109,27 @@ namespace TimeOut
 
 		private void button_save_Click(object sender, EventArgs e)
 		{
+            string date      = DateTime.Now.ToLongDateString() + DateTime.Now.ToString();
+            string id_player = Main.GetHashString(date);
+
 			string n = this.textBox_name.Text;
 			string l = this.textBox_lastname.Text;
 			float a = (float)this.numericUpDown_altura.Value;
 			DateTime b = this.monthCalendar1.SelectionStart;
 			string p = Player.getPosicion(this.posicionPreferida.Text);
-			bool result = Player.datosValidosJugador(n, l, a, p, b);
-			if (result)
+
+            if (Player.datosValidosJugador(n, l, a, p, b, id_player))
 			{
-				jugador.Nombre = n;
-				jugador.Apellido = l;
-				jugador.Altura = a;
-				jugador.FechaNacimiento = b;
-				jugador.Posicion = p;
+				jugador.Name      = n;
+				jugador.Lastname  = l;
+				jugador.Height    = a;
+				jugador.Birthdate = b;
+				jugador.Position  = p;
+                jugador.Id        = id_player;
+
 				// No se guarda el jugador en ningun archivo por cambios de diseño
 				//GuardarJugador();
+
 				MessageBox.Show("El jugador ha sido creado correctamente!");
 				this.confirmation = false; // Desactiva el mensaje de confirmación
 				this.Close();

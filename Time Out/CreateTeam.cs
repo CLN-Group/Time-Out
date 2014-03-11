@@ -54,7 +54,7 @@ namespace TimeOut
 				nuevo.ShowDialog();
 				if (nuevo.JugadorCreado)
 				{
-					this.createdTeam.Jugadores.Add(nuevo.Jugador);
+					this.createdTeam.Players.Add(nuevo.Jugador);
 					int valor = Convert.ToInt32(this.label_cantPlayers.Text) + 1;
 					this.label_cantPlayers.Text =  Convert.ToString(valor);
 				}
@@ -84,7 +84,7 @@ namespace TimeOut
 		/// <summary>
 		/// Comprueba que todos los parametros tengan valores válidos.
 		/// </summary>
-		/// <param name="title">Titulo del equipo (nombre).</param>
+		/// <param name="title">Team's name</param>
 		/// <param name="nombreDT">Nombre del Director Técnico.</param>
 		/// <param name="cantidadJugadores">Cantidad de jugadores ingresados hasta el momento.</param>
 		/// <returns>Si todos los valores de los parametros son válidos retorna True</returns>
@@ -138,8 +138,8 @@ namespace TimeOut
 			string nombreDT = this.nameCoachTextBox.Text;
 			if (datosValidosEquipo(titulo, nombreDT, CantidadDeJugadoresIngresados))
 			{
-				this.createdTeam.Titulo = titulo;
-				this.createdTeam.NombreDelTecnico = nombreDT;
+				this.createdTeam.Name = titulo;
+				this.createdTeam.Coach = nombreDT;
 				// Los jugadores ya han sidos añadidos.
 				GuardarEquipo();
                 // Desactiva la confirmacion del usuario al cerrar la ventana

@@ -9,83 +9,70 @@ namespace TimeOut
 {
 	public class Team
 	{
-		string titulo;
-		string nombreDT;
-		int partidosGanados;
-		int partidosPerdidos;
-		List<Player> jugadores;
-		// Estadísticas de un partido
-		int faltas = 0;
-		int tiemposMuertosRestantes = 0;
 		// Constante que define la cantidad de tiempos muertos maximos
-		const int TOmax = 6;
+		public const int TOmax = 6;
 
-		/***************/
-		/* PROPIEDADES */
-		/***************/
-		#region Propiedades
-		public string Titulo
+		public string Name
 		{
-			get { return titulo; }
-			set { titulo = value; }
+			get;
+			set;
 		}
-		public string NombreDelTecnico
+		public string Coach
 		{
-			get { return nombreDT; }
-			set { nombreDT = value; }
+			get;
+			set;
 		}
 		public int PartidosJugados
 		{
-			get { return partidosGanados + partidosPerdidos; }
+            get { return PartidosGanados + PartidosPerdidos; }
 		}
 		public int PartidosGanados
 		{
-			get { return partidosGanados; }
-			set { partidosGanados = value; }
+			get;
+			set;
 		}
 		public int PartidosPerdidos
 		{
-			get { return partidosPerdidos; }
-			set { partidosPerdidos = value; }
+			get;
+			set;
 		}
+        public List<Player> Players
+        {
+            get;
+            set;
+        }
+        // Estadísticas de un partido
 		public int Faltas
 		{
-			get { return faltas; }
-			set { faltas = value; }
+			get;
+            set;
 		}
 		[XmlIgnoreAttribute]
 		public int TiemposMuertosRestantes
 		{
-			get { return tiemposMuertosRestantes; }
-			set { tiemposMuertosRestantes = value; }
+            get;
+            set;
 		}
-        public List<Player> Jugadores
-        {
-            get { return jugadores; }
-            set { jugadores = value; }
-        }
-		#endregion
-		
 
-		/*****************/
-		/* CONSTRUCTORES */
-		/*****************/
+
+
 		public Team()
 		{
-			titulo = "";
-			nombreDT = "";
-			partidosGanados = 0;
-			partidosPerdidos = 0;
-			jugadores = new List<Player>();
-			tiemposMuertosRestantes = 5;
+			Name                    = "";
+			Coach                   = "";
+			PartidosGanados         = 0;
+			PartidosPerdidos        = 0;
+			Players                 = new List<Player>();
+            TiemposMuertosRestantes = TOmax;
 		}
-		public Team(string Titulo, string NombreDelTecnico = "")
+
+		public Team(string Name, string NombreDelTecnico = "")
 		{
-			this.titulo = Titulo;
-			this.nombreDT = NombreDelTecnico;
-			partidosGanados = 0;
-			partidosPerdidos = 0;
-			tiemposMuertosRestantes = TOmax;
+            this.Name               = Name;
+            this.Coach              = NombreDelTecnico;
+            PartidosGanados         = 0;
+            PartidosPerdidos        = 0;
+            TiemposMuertosRestantes = TOmax;
 		}
 
 		/// <summary>
@@ -93,7 +80,7 @@ namespace TimeOut
 		/// </summary>
 		public void restartTO()
 		{
-			this.tiemposMuertosRestantes = TOmax;
+            this.TiemposMuertosRestantes = TOmax;
 		}
 
 		public class TeamComparer : IComparer<Team>
@@ -129,7 +116,7 @@ namespace TimeOut
 						// ...and y is not null, compare the  
 						// lengths of the two strings. 
 						// 
-						int retval = x.Titulo.CompareTo(y.Titulo);
+						int retval = x.Name.CompareTo(y.Name);
 
 						if (retval != 0)
 						{
@@ -143,7 +130,7 @@ namespace TimeOut
 							// If the strings are of equal length, 
 							// sort them with ordinary string comparison. 
 							// 
-							return x.Titulo.CompareTo(y.Titulo);
+							return x.Name.CompareTo(y.Name);
 						}
 					}
 				}

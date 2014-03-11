@@ -10,16 +10,17 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Security.Cryptography;
 
 namespace TimeOut
 {
 	public partial class Main : Form
 	{
-		static string folder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\data\");
-		public static string archivoEquipos = folder + "equipos.xml";
-		//string archivoJugadores = folder + "players.xml";
-		public static string archivoPartidos = folder + "partidos.xml";
-        Team local = new Team();
+        static string folder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\data\");
+        //static string folder = @"C:\timeout\";
+		public static string archivoEquipos  = folder + "teams.xml";
+		public static string archivoPartidos = folder + "matchs.xml";
+        Team local   = new Team();
         Team visitor = new Team();
 
 		public Main()
@@ -35,6 +36,7 @@ namespace TimeOut
 		{
 			this.Close();
 		}
+
 		/// <summary>
 		/// Abre un dialogo pidiendo confirmación al usuario para salir del programa
 		/// </summary>
@@ -57,8 +59,8 @@ namespace TimeOut
 		{
 			if (Show)
 			{
-				this.label_localTDescription.Text = this.local.Titulo;
-				this.label_visitorTDescription.Text = this.visitor.Titulo;
+				this.label_localTDescription.Text = this.local.Name;
+				this.label_visitorTDescription.Text = this.visitor.Name;
 				this.button_InitialTeamLocal.Visible = true;
 				this.button_InitialTeamVisitor.Visible = true;
 				this.button_startMatch.Enabled = true;
@@ -99,6 +101,7 @@ namespace TimeOut
 			CreateTeam nuevo = new CreateTeam();
 			nuevo.ShowDialog();
 		}
+
 		/*TODO
 		 * Este metodo esta desactivado hasta que se independizen 
 		 * los archivos de jugadores con archivos de equipos
@@ -113,6 +116,24 @@ namespace TimeOut
 		/*  Metodos  */
 		/*  publicos */
 		/*************/
+
+
+        public static byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = SHA1.Create();
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+
+
 		/// <summary>
 		/// Carga todos los equipos guardados en un archivo XML en una lista generica.
 		/// </summary>
@@ -122,13 +143,14 @@ namespace TimeOut
 			List<Team> listaEquipos = null;
 			if (File.Exists(archivoEquipos))
 			{
-				StreamReader flujo = new StreamReader(archivoEquipos);
+				StreamReader flujo   = new StreamReader(archivoEquipos);
 				XmlSerializer serial = new XmlSerializer(typeof(List<Team>));
-				listaEquipos = (List<Team>)serial.Deserialize(flujo);
+				listaEquipos         = (List<Team>)serial.Deserialize(flujo);
 				flujo.Close();
 			}
 			return listaEquipos;
 		}
+
 		/// <summary>
 		/// Carga todos los partidos guardados en un archivo XML en una lista generica.
 		/// </summary>
@@ -138,27 +160,30 @@ namespace TimeOut
 			List<Match> listaPartidos = null;
 			if (File.Exists(archivoPartidos))
 			{
-				StreamReader flujo = new StreamReader(archivoPartidos);
+				StreamReader flujo   = new StreamReader(archivoPartidos);
 				XmlSerializer serial = new XmlSerializer(typeof(List<Match>));
-				listaPartidos = (List<Match>)serial.Deserialize(flujo);
+				listaPartidos        = (List<Match>)serial.Deserialize(flujo);
 				flujo.Close();
 			}
 			return listaPartidos;
 		}
+
 		/// <summary>
 		/// Agrega todos los nombres de los equipos guardados en la lista generica titulos.
 		/// </summary>
 		public static List<string> CargarTitulosEquipos()
 		{
 			List<string> titulos = new List<string>();
-			List<Team> equipos = CargarEquipos();
+			List<Team> equipos   = CargarEquipos();
+
 			if (equipos != null)
 			{	
 				foreach (Team e in equipos)
 				{
-					titulos.Add(e.Titulo);
+					titulos.Add(e.Name);
 				}
 			}
+
 			return titulos;
 		}
 		
@@ -169,26 +194,33 @@ namespace TimeOut
 		Match loadMatchFromFile()
 		{
 			Match ultimoPartido = null;
-			List<Match> lista = CargarPartidos();
+			List<Match> lista   = CargarPartidos();
+
 			if (lista != null)
 				ultimoPartido = lista[ lista.Count-1 ];
+
 			return ultimoPartido;
 		}
 
-		/**********************************/
-		/* METODOS DE BOTONES PRINCIPALES */
-		/**********************************/
+
+		// ********************************** //
+		// * METODOS DE BOTONES PRINCIPALES * //
+		// ********************************** //
+
 		private void button_InitialTeam_Click(object sender, EventArgs e)
 		{
-			List<Player> listaJugadores;
-			Button clickedButton = (Button)sender;
+			List<Player> listaJugadores = null;
+			Button clickedButton        = (Button)sender;
+
 			if (clickedButton.Name.Equals("button_InitialTeamLocal"))
-				listaJugadores = this.local.Jugadores;
+				listaJugadores = this.local.Players;
 			else
-				listaJugadores = this.visitor.Jugadores;
-			SelectInitialTeam nuevo = new SelectInitialTeam(listaJugadores);
-			nuevo.ShowDialog();
-			if (nuevo.Done)
+				listaJugadores = this.visitor.Players;
+
+			SelectInitialTeam selectInitialTeamWindow = new SelectInitialTeam(listaJugadores);
+			selectInitialTeamWindow.ShowDialog();
+
+			if (selectInitialTeamWindow.Done)
 				clickedButton.Visible = false;
 		}
 
@@ -197,9 +229,9 @@ namespace TimeOut
 			if (this.button_InitialTeamLocal.Visible || this.button_InitialTeamVisitor.Visible)
 			{
 				MessageBox.Show("Debes seleccionar la formación inicial de AMBOS equipos!",
-					"Formación inicial no completada",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
+					            "Formación inicial no completada",
+					            MessageBoxButtons.OK,
+					            MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -211,18 +243,19 @@ namespace TimeOut
 
 		private void button_getStatistics_Click(object sender, EventArgs e)
 		{
-			Match lm = loadMatchFromFile();
-			if (lm != null)
+			Match match = loadMatchFromFile();
+
+			if (match != null)
 			{
-				ShowStatistics nuevo = new ShowStatistics(lm);
-				nuevo.ShowDialog();
+				ShowStatistics window = new ShowStatistics(match);
+				window.ShowDialog();
 			}
 			else
 			{
 				MessageBox.Show("ERROR: no se pudo cargar ningún partido", 
-					"Fallo al leer desde archivo",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
+					            "Fallo al leer desde archivo",
+					            MessageBoxButtons.OK,
+					            MessageBoxIcon.Error);
 			}
 		}
 	}

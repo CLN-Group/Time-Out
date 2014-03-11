@@ -68,13 +68,13 @@ namespace TimeOut
 
 			//List<string> titulos = Main.CargarTitulosEquipos();
 			listB1.DataSource = listaEquipos;
-			listB1.DisplayMember = "Titulo";
+			listB1.DisplayMember = "Name";
 
 			// Se crea un nuevo administrador para que la segunda listBox
 			// sea independiente a la anterior (porque tienen la misma DataSource)
 			listB2.BindingContext = new BindingContext();
 			listB2.DataSource = listaEquipos;
-			listB2.DisplayMember = "Titulo";
+			listB2.DisplayMember = "Name";
 
 			// Clear the item selected by default in both lists
 			listB1.ClearSelected();

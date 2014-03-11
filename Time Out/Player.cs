@@ -5,189 +5,189 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace TimeOut
 {
 	public class Player
 	{
-		//int id;
-		string nombre;
-		string apellido;
-		float altura;
-		string nacimiento;
-		DateTime fechaNacimiento;
+		#region Propiedades
+
+		public string Id {
+			get;
+			set;
+		}
+		public string Name {
+			get;
+			set;
+		}
+		public string Lastname {
+			get;
+			set;
+		}
+        [XmlIgnore]
+		public string CompleteName {
+            get { return this.Lastname + ", " + this.Name; }
+		}
+		public float Height {
+			get;
+			set;
+		}
+		/// <summary>
+		/// Return the complete date time of the user birthdate
+		/// </summary>
+		[XmlIgnore]
+		public DateTime Birthdate {
+			get;
+			set;
+		}
+		/// <summary>
+		/// Get and set the birthdate of the user without the time (DD/MM/YYYY)
+		///		<para>NOTE: this is only used to work with the XML file</para>
+		/// </summary>
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+		[XmlElement("Birthdate")]
+		public string BirthdateFormatted {
+			get { return (Birthdate.ToShortDateString()); }
+			// Set the birthdate converting the value from file
+			set { Birthdate = DateTime.ParseExact(value, "dd/MM/yyyy", null); }
+		}
 		/*
 		 * La posición preferida del jugador es Opcional.
 		 * Los valores variaran de la siguiente forma:
-		 *	N -> ninguna posición preferida
-		 *	P -> Pivot
-		 *	A -> Ala-Pivot
-		 *	F -> Alero
-		 *	G -> Escolta
-		 *	B -> Base
+		 *	N  -> ninguna posición preferida
+		 *	C  -> Pivot
+		 *	CF -> Ala-Pivot
+		 *	F  -> Alero
+		 *	FG -> Escolta
+		 *	G  -> Base
 		 */
-		static string[] validPositions = { "none", "C", "PF", "SF", "SG", "PG" };
-		string posicion;
-		// Indica si el jugador es Titular o Suplente
-		bool titular = false;
-		// Estadísticas de un partido
-		int libresAnotados = 0;
-		int libresFallados = 0;
-		int doblesAnotados = 0;
-		int doblesFallados = 0;
-		int triplesAnotados = 0;
-		int triplesFallados = 0;
-		int faltas = 0;
-		int faltasTecnicas = 0;
-		int asistencias = 0;
-		float minutosJugados = 0;
-		int rebotesOfensivos;
-		int rebotesDefensivos;
-		//TODO
-        // Estadisticas globales
-		//
-		// Por ahora no tiene
-		// Se agregarán cuando este terminada la ventana del partido
-			
+		static string[] validPositions = { "N", "C", "FC", "F", "GF", "G" };
+		public string Position {
+			get;
+			set;
+		}
+		/// <summary>
+		/// It it used on the game to check 
+        /// if player will start match playing
+		/// </summary>
+		[XmlIgnore]
+		public bool Starter {
+			get;
+			set;
+		}
 
-		/***************/
-		/* PROPIEDADES */
-		/***************/
-		#region Propiedades
-		/*
-		public int ID
-		{
-			get { return id; }
-			set { id = value; }
-		}*/
-		public string Nombre
-		{
-			get { return nombre; }
-			set { nombre = value; }
-		}
-		public string Apellido
-		{
-			get { return apellido; }
-			set { apellido = value; }
-		}
-		public string NombreCompleto
-		{
-			get { return apellido+", "+nombre; }
-		}
-		public float Altura
-		{
-			get { return altura; }
-			set { altura = value; }
-		}
-		public string Nacimiento
-		{
-			get { return nacimiento; }
-			// This attribute is Read-Only but the set statement
-			// must to be declared to save it in XML correctly
-			set { }
-		}
-		[XmlIgnoreAttribute]
-		public DateTime FechaNacimiento
-		{
-			get { return fechaNacimiento; }
-			set  
-			{ 
-				fechaNacimiento = value; 
-				// This also set the value of the born in string mode
-				nacimiento = fechaNacimiento.ToShortDateString();
-			}
-		}
-		public string Posicion
-		{
-			get { return posicion; }
-			set { posicion = value; }
-		}
-		[XmlIgnoreAttribute]
-		public bool Titular
-		{
-			get { return titular; }
-			set { titular = value; }
-		}
-		// Propiedades estadísticas del encuentro específico,
-		// estas no se guardaran en el archivo XML
-		[XmlIgnoreAttribute]
-		public int RebotesOfensivos
-		{
-			get { return rebotesOfensivos; }
-			set { rebotesOfensivos = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int RebotesDefensivos
-		{
-			get { return rebotesDefensivos; }
-			set { rebotesDefensivos = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int TirosLibresAnotados
-		{
-			get { return libresAnotados; }
-			set { libresAnotados = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int TirosLibresFallados
-		{
-			get { return libresFallados; }
-			set { libresFallados = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int PuntosDoblesAnotados
-		{
-			get { return doblesAnotados; }
-			set { doblesAnotados = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int PuntosDoblesFallados
-		{
-			get { return doblesFallados; }
-			set { doblesFallados = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int PuntosTriplesAnotados
-		{
-			get { return triplesAnotados; }
-			set { triplesAnotados = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int PuntosTriplesFallados
-		{
-			get { return triplesFallados; }
-			set { triplesFallados = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int FaltasCometidas
-		{
-			get { return faltas; }
-			set { faltas = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int FaltasTecnicas
-		{
-			get { return faltasTecnicas; }
-			set { faltasTecnicas = value; }
-		}
-		[XmlIgnoreAttribute]
-		public int AsistenciasLogradas
-		{
-			get { return asistencias; }
-			set { asistencias = value; }
-		}
-		[XmlIgnoreAttribute]
-		public float MinutosJugados
-		{
-			get { return minutosJugados; }
-			set { minutosJugados = value; }
-		}
-		#endregion
+
+		/// TODO:
+		/// The match statistic should be moved into a proper class
+		/// that will store ID_match ID_action ID_team ID_player
 		
 
-		/*/////////////////////*/
-		/*  METODOS ESTATICOS  */
-		/*/////////////////////*/
+		// Propiedades estadísticas del encuentro específico,
+		// estas no se guardaran en el archivo XML
+		[XmlIgnore]
+		public int RebotesOfensivos
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int RebotesDefensivos
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int TirosLibresAnotados
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int TirosLibresFallados
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int PuntosDoblesAnotados
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int PuntosDoblesFallados
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int PuntosTriplesAnotados
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int PuntosTriplesFallados
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int FaltasCometidas
+		{
+			get;
+			set;
+		}
+		[XmlIgnore]
+		public int FaltasTecnicas
+		{
+			get;
+			set;
+		}
+        [XmlIgnore]
+        public int AsistenciasLogradas
+        {
+            get;
+            set;
+        }
+        [XmlIgnore]
+        public int Perdidas
+        {
+            get;
+            set;
+        }
+		[XmlIgnore]
+		public float MinutosJugados
+		{
+			get;
+			set;
+		}
+		#endregion
+
+
+        public Player()
+        {
+            Id        = "";
+            Birthdate = new DateTime();
+            Name      = "";
+            Lastname  = "";
+            Height    = 1;
+            Position  = "N";
+        }
+
+        public Player(string Nombre, string Apellido, DateTime Nacimiento, float Altura, string PosicionPreferida = "N", string id = "")
+        {
+            this.Id        = id;
+            this.Birthdate = Nacimiento;
+            this.Name      = Nombre;
+            this.Lastname  = Apellido;
+            this.Height    = Altura;
+            this.Position  = PosicionPreferida;
+        }
+		
+
+
 		/// <summary>
 		///	Comprueba si la cadena ingresada tiene uno o más números
 		/// </summary>
@@ -198,6 +198,8 @@ namespace TimeOut
 			Regex rx = new Regex(@"\d");
 			return rx.IsMatch(str);
 		}
+
+
 		/// <summary>
 		/// Verifica si el valor del caracter pasado por parámetro es válido.
 		/// </summary>
@@ -212,6 +214,8 @@ namespace TimeOut
 			bool valid = (Array.IndexOf(validPositions, posicion) > -1) ? true : false;
 			return valid;
 		}
+
+
 		/// <summary>
 		/// Analísa los valores de todas las variables que pueden ser atributos del Jugador
 		/// </summary>
@@ -220,10 +224,11 @@ namespace TimeOut
 		/// <param name="altura">Altura del jugador, puede ser un numero con punto para especificar los centimetros</param>
 		/// <param name="posicion">Posición del jugador</param>
 		/// <returns>Si todos los valores ingresados son válidos retorna True</returns>
-		static public bool datosValidosJugador(string nombre, string apellido, float altura, string posicion, DateTime nacimiento)
+		static public bool datosValidosJugador(string nombre, string apellido, float altura, string posicion, DateTime nacimiento, string id)
 		{
 			bool res = true;
-			if (nombre == "" || apellido == "")
+
+			if (String.IsNullOrWhiteSpace(nombre) || String.IsNullOrWhiteSpace(apellido))
 				res = false;
 			if (strConNumero(nombre) || strConNumero(apellido))
 				res = false;
@@ -233,8 +238,13 @@ namespace TimeOut
 				res = false;
 			if (nacimiento.Year < 1940 || DateTime.Now < nacimiento)
 				res = false;
+            if (id.Length != 40)
+                res = false;
+                
 			return res;
 		}
+
+
 		/// <summary>
 		/// Procesa una cadena con el nombre correspondiente a una posición,
 		/// y retorna su correspondiente abreviatura.
@@ -243,42 +253,21 @@ namespace TimeOut
 		/// <returns>La abreviatura correspondiente a la posición</returns>
 		static public string getPosicion(string posicionCompleta)
 		{
-			string posicionCorta = "none";
-			string pos = posicionCompleta.ToLower();
+			string posicionCorta = "N";
+			string pos           = posicionCompleta.ToLower();
+
 			if (pos == "pivot")
 				posicionCorta = "C";
 			if (pos == "ala-pivot")
-				posicionCorta = "PF";
+				posicionCorta = "FC";
 			if (pos == "alero")
-				posicionCorta = "SF";
+				posicionCorta = "F";
 			if (pos == "escolta")
-				posicionCorta = "SG";
+				posicionCorta = "GF";
 			if (pos == "base")
-				posicionCorta = "PG";
-			return posicionCorta;
-		}
+				posicionCorta = "G";
 
-		/***************/
-		/* CONSTRUCTOR */
-		/***************/
-		public Player()
-		{
-			FechaNacimiento = new DateTime();
-			nombre = "";
-			apellido = "";
-			altura = 1; // 
-			posicion = "none";
-		}
-		public Player(string Nombre, string Apellido, DateTime Nacimiento, float Altura, string PosicionPreferida = "none")
-		{
-			if (datosValidosJugador(Nombre, Apellido, Altura, PosicionPreferida, Nacimiento))
-			{
-				FechaNacimiento = Nacimiento;
-				this.nombre = Nombre;
-				this.apellido = Apellido;
-				this.altura = Altura;
-				this.posicion = PosicionPreferida;
-			}
+			return posicionCorta;
 		}
 	}
 }

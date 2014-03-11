@@ -50,8 +50,8 @@ namespace TimeOut
 			// Se limpia el input del listBox vacío
 			this.listBox_initialPlayers.Items.Clear();
 			// Ambos listBox mostrarán las mismas propiedades
-			this.listBox_availablePlayers.DisplayMember = "NombreCompleto";
-			this.listBox_initialPlayers.DisplayMember = "NombreCompleto";
+			this.listBox_availablePlayers.DisplayMember = "CompleteName";
+			this.listBox_initialPlayers.DisplayMember = "CompleteName";
 		}
 
 		/// <summary>
@@ -62,10 +62,10 @@ namespace TimeOut
 			Player aux = (Player)this.listBox_availablePlayers.SelectedItem;
 			if (aux != null)
 			{
-				if (!aux.Titular)
+				if (!aux.Starter)
 				{
 					this.listBox_initialPlayers.Items.Add(aux);
-					aux.Titular = true;
+					aux.Starter = true;
 					if (CantidadJugadoresIniciales == 5)
 						this.button_add.Enabled = false;
 					if (CantidadJugadoresIniciales == 1)
@@ -85,7 +85,7 @@ namespace TimeOut
 			if (aux != null)
 			{
 				Player real = jugadores.FirstOrDefault(x => x == aux);
-				real.Titular = false;
+				real.Starter = false;
 				this.listBox_initialPlayers.Items.RemoveAt(this.listBox_initialPlayers.SelectedIndex);
 				// Si el botón de agregar jugador estaba desactivado, lo activa
 				if (!this.button_add.Enabled)
@@ -118,7 +118,7 @@ namespace TimeOut
 		void anularCambios()
 		{
 			foreach (Player p in this.jugadores)
-				p.Titular = false;
+				p.Starter = false;
 		}
 
 		private void SelectInitialTeam_FormClosing(object sender, FormClosingEventArgs e)
